@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulary Hub - Chapter 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb; /* gray-50 */
+        }
+        .card-container {
+            perspective: 1000px;
+        }
+        .flashcard {
+            transition: transform 0.7s;
+            transform-style: preserve-3d;
+        }
+        .flashcard.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-face {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+        .phrasal-verb.selected {
+            background-color: #67e8f9; /* cyan-300 */
+            border-color: #0891b2; /* cyan-600 */
+        }
+        .definition.selected {
+            background-color: #67e8f9; /* cyan-300 */
+            border-color: #0891b2; /* cyan-600 */
+        }
+        .correct-match {
+            background-color: #dcfce7 !important; /* green-100 */
+            border-color: #22c55e !important; /* green-500 */
+            color: #166534; /* green-800 */
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="text-gray-900">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-extrabold text-gray-900">Vocabulary Deep Dive</h1>
+            <p class="text-xl text-gray-600 mt-3">Chapter 2: An interactive toolkit to master key terms and phrases.</p>
+        </header>
+
+        <!-- Interactive Flashcards Section -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold border-b-4 border-cyan-400 pb-2 mb-6">Interactive Flashcards</h2>
+            <div class="card-container w-full max-w-lg mx-auto h-72">
+                <div id="flashcard" class="flashcard relative w-full h-full cursor-pointer">
+                    <!-- Card Front -->
+                    <div id="card-front" class="flashcard-face absolute w-full h-full bg-white rounded-xl shadow-lg flex items-center justify-center p-4 border-2 border-gray-200">
+                        <p class="text-4xl font-bold"></p>
+                    </div>
+                    <!-- Card Back -->
+                    <div id="card-back" class="flashcard-back absolute w-full h-full bg-cyan-50 rounded-xl shadow-lg p-6 border-2 border-cyan-200 flex flex-col justify-center">
+                        <p class="text-sm font-semibold text-cyan-700 uppercase" id="card-pos"></p>
+                        <p class="text-xl font-bold text-gray-900 mt-1" id="card-def"></p>
+                        <p class="text-gray-600 italic mt-4" id="card-ex"></p>
+                        <p class="text-cyan-800 font-semibold mt-4" id="card-es"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center items-center mt-6 space-x-4">
+                <button id="prev-card" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg transition">Previous</button>
+                <p id="card-counter" class="text-gray-600 font-semibold"></p>
+                <button id="next-card" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg transition">Next</button>
+            </div>
+        </section>
+
+        <!-- Phrasal Verb Connector -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold border-b-4 border-teal-400 pb-2 mb-6">Phrasal Verb Connector</h2>
+            <p class="text-center text-gray-600 mb-6">Match the phrasal verb with its correct definition. Click a verb, then its meaning.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="phrasal-verb-container">
+                <div id="verbs-column" class="space-y-3"></div>
+                <div id="defs-column" class="space-y-3"></div>
+            </div>
+             <div class="text-center mt-4"><button id="reset-phrasal-verbs" class="text-sm text-gray-500 hover:underline">Reset</button></div>
+        </section>
+
+        <!-- Word Formation Challenge -->
+        <section>
+            <h2 class="text-3xl font-bold border-b-4 border-indigo-400 pb-2 mb-6">Word Formation Challenge</h2>
+            <div id="word-formation-container" class="space-y-6">
+                <!-- Challenges will be inserted here -->
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+    // --- DATA ---
+    const flashcardData = [
+        { term: 'Acquire', pos: 'verb', def: 'To obtain something, get knowledge about.', ex: "This is a great age to acquire new skills.", es: 'Adquirir' },
+        { term: 'Resilient', pos: 'adjective', def: 'Able to quickly become happy again after a problem.', ex: "With insights, teenagers can become more emotionally resilient.", es: 'Resiliente, Resistente' },
+        { term: 'Surge', pos: 'noun', def: 'A sudden large increase.', ex: "There is a second important surge of development during the teenage years.", es: 'Aumento, Oleada' },
+        { term: 'Consolidate', pos: 'verb', def: 'To make something stronger or more solid.', ex: "The brain consolidates and practises what has been learnt while you're asleep.", es: 'Consolidar' },
+        { term: 'Deprivation', pos: 'noun', def: 'The state of not having something you need.', ex: "Using a mobile phone before bed can lead to sleep deprivation.", es: 'Privación' },
+        { term: 'Proficient', pos: 'adjective', def: 'Skilled and experienced.', ex: "Teenagers can quickly become proficient at using new technology.", es: 'Competente, Diestro' },
+        { term: 'Impulsive', pos: 'adjective', def: 'Acting suddenly without careful thought.', ex: "This explains why teenagers can be impulsive and take risks.", es: 'Impulsivo/a' },
+        { term: 'Equip', pos: 'verb', def: 'To provide someone with the things they need for a particular purpose.', ex: "It also equips teens with valuable life skills.", es: 'Equipar' },
+        { term: 'Cognitive', pos: 'adjective', def: 'Connected with thinking or mental processes.', ex: 'Reading is a complex cognitive process.', es: 'Cognitivo/a' },
+        { term: 'Retention', pos: 'noun', def: 'The ability to keep or continue to have something, especially information.', ex: 'Sleep plays a vital role in memory retention.', es: 'Retención' },
+        { term: 'Synapse', pos: 'noun', def: 'The point where electrical signals pass from one nerve cell to another.', ex: 'Learning strengthens the synapses in your brain.', es: 'Sinapsis' }
+    ];
+
+    const phrasalVerbData = [
+        { verb: 'Catch up with', def: 'Get to the same level as others' },
+        { verb: 'Come up with', def: 'Think of or create something (an idea, a plan)' },
+        { verb: 'Dig up', def: 'Discover information by investigating' },
+        { verb: 'End up', def: 'To finally be in a particular place or situation' },
+        { verb: 'Look up', def: 'Find information in a reference source' },
+        { verb: 'Set up', def: 'Start a business, club, or organization' },
+        { verb: 'Speak up', def: 'Talk louder' },
+        { verb: 'Use up', def: 'Use all of a supply of something' }
+    ];
+
+    const wordFormationData = [
+        { sentence: "If you're 'body smart', you have ___ mind-body coordination, like dancers and surgeons do.", root: 'IMPRESS', answer: 'impressive' },
+        { sentence: "Being able to think ___ is a characteristic we normally associate with clever people.", root: 'LOGIC', answer: 'logically' },
+        { sentence: "Some people have ___ managed to memorise a lot of the digits of pi.", root: 'SUCCESS', answer: 'successfully' },
+        { sentence: "The theory of multiple ___ covers all human abilities.", root: 'INTELLIGENT', answer: 'intelligences' },
+        { sentence: "They don't doubt the ___ of different abilities, but they believe they are just skills.", root: 'EXIST', answer: 'existence' }
+    ];
+
+
+    // --- FLASHCARD LOGIC ---
+    let currentCard = 0;
+    const flashcardEl = document.getElementById('flashcard');
+    const cardFrontText = document.querySelector('#card-front p');
+    const cardPos = document.getElementById('card-pos');
+    const cardDef = document.getElementById('card-def');
+    const cardEx = document.getElementById('card-ex');
+    const cardEs = document.getElementById('card-es');
+    const cardCounter = document.getElementById('card-counter');
+    const prevBtn = document.getElementById('prev-card');
+    const nextBtn = document.getElementById('next-card');
+
+    function showCard() {
+        const card = flashcardData[currentCard];
+        cardFrontText.textContent = card.term;
+        cardPos.textContent = card.pos;
+        cardDef.textContent = card.def;
+        cardEx.textContent = `e.g., "${card.ex}"`;
+        cardEs.textContent = `(ES: ${card.es})`;
+        cardCounter.textContent = `${currentCard + 1} / ${flashcardData.length}`;
+        flashcardEl.classList.remove('is-flipped');
+    }
+
+    flashcardEl.addEventListener('click', () => flashcardEl.classList.toggle('is-flipped'));
+    prevBtn.addEventListener('click', () => {
+        currentCard = (currentCard - 1 + flashcardData.length) % flashcardData.length;
+        showCard();
+    });
+    nextBtn.addEventListener('click', () => {
+        currentCard = (currentCard + 1) % flashcardData.length;
+        showCard();
+    });
+
+    // --- PHRASAL VERB LOGIC ---
+    const verbsColumn = document.getElementById('verbs-column');
+    const defsColumn = document.getElementById('defs-column');
+    const resetPhrasalVerbsBtn = document.getElementById('reset-phrasal-verbs');
+    let selectedVerb = null;
+    let selectedDef = null;
+
+    function shuffle(array) {
+        return array.sort(() => Math.random() - 0.5);
+    }
+
+    function setupPhrasalVerbs() {
+        verbsColumn.innerHTML = '';
+        defsColumn.innerHTML = '';
+        const shuffledVerbs = shuffle([...phrasalVerbData]);
+        const shuffledDefs = shuffle([...phrasalVerbData]);
+
+        shuffledVerbs.forEach(item => {
+            const verbEl = document.createElement('div');
+            verbEl.textContent = item.verb;
+            verbEl.dataset.verb = item.verb;
+            verbEl.className = 'phrasal-verb p-3 border-2 rounded-lg cursor-pointer hover:bg-gray-100';
+            verbsColumn.appendChild(verbEl);
+        });
+
+        shuffledDefs.forEach(item => {
+            const defEl = document.createElement('div');
+            defEl.textContent = item.def;
+            defEl.dataset.defFor = item.verb;
+            defEl.className = 'definition p-3 border-2 rounded-lg cursor-pointer hover:bg-gray-100';
+            defsColumn.appendChild(defEl);
+        });
+        
+        addPhrasalVerbListeners();
+    }
+    
+    function addPhrasalVerbListeners() {
+        verbsColumn.querySelectorAll('.phrasal-verb').forEach(el => {
+            el.addEventListener('click', () => {
+                if (selectedVerb) selectedVerb.classList.remove('selected');
+                selectedVerb = el;
+                selectedVerb.classList.add('selected');
+                checkMatch();
+            });
+        });
+
+        defsColumn.querySelectorAll('.definition').forEach(el => {
+            el.addEventListener('click', () => {
+                if (selectedDef) selectedDef.classList.remove('selected');
+                selectedDef = el;
+                selectedDef.classList.add('selected');
+                checkMatch();
+            });
+        });
+    }
+
+    function checkMatch() {
+        if (selectedVerb && selectedDef) {
+            if (selectedVerb.dataset.verb === selectedDef.dataset.defFor) {
+                selectedVerb.classList.add('correct-match');
+                selectedDef.classList.add('correct-match');
+            }
+            selectedVerb.classList.remove('selected');
+            selectedDef.classList.remove('selected');
+            selectedVerb = null;
+            selectedDef = null;
+        }
+    }
+    
+    resetPhrasalVerbsBtn.addEventListener('click', setupPhrasalVerbs);
+
+    // --- WORD FORMATION LOGIC ---
+    const wfContainer = document.getElementById('word-formation-container');
+
+    wordFormationData.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = "bg-white p-6 rounded-lg shadow-sm border";
+        div.innerHTML = `
+            <p class="text-lg">${item.sentence.replace('___', `<span class="font-bold text-indigo-600">[...]</span>`)}</p>
+            <div class="mt-4 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <input type="text" data-answer="${item.answer}" class="w-full sm:w-64 p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Type answer...">
+                <p class="text-sm text-gray-500">Use root word: <strong class="text-indigo-600">${item.root}</strong></p>
+                <div class="feedback-wf text-sm font-semibold ml-auto"></div>
+            </div>
+        `;
+        wfContainer.appendChild(div);
+    });
+
+    wfContainer.addEventListener('input', (e) => {
+        if (e.target.tagName === 'INPUT') {
+            const input = e.target;
+            const feedback = input.parentElement.querySelector('.feedback-wf');
+            if (input.value.toLowerCase() === input.dataset.answer.toLowerCase()) {
+                feedback.textContent = 'Correct!';
+                feedback.className = 'feedback-wf text-sm font-semibold ml-auto text-green-600';
+            } else {
+                feedback.textContent = '';
+            }
+        }
+    });
+
+
+    // --- INITIALIZE ---
+    document.addEventListener('DOMContentLoaded', () => {
+        showCard();
+        setupPhrasalVerbs();
+    });
+    </script>
+</body>
+</html>
