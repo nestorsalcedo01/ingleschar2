@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glosario Interactivo y Ejercicios de Práctica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .feedback {
+            display: none;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+        .input-correct {
+            border-color: #22c55e;
+            box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3);
+        }
+        .input-incorrect {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-extrabold text-slate-900">Glosario Interactivo y Ejercicios</h1>
+            <p class="text-xl text-slate-600 mt-2">Capítulo 2: Vocabulario y Phrasal Verbs</p>
+        </header>
+
+        <!-- Words connected with studying and learning -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-sky-700 mb-6 border-b-4 border-sky-300 pb-2">Palabras Conectadas con el Estudio y el Aprendizaje</h2>
+            <div id="vocabulary-list" class="space-y-3">
+                <!-- El vocabulario se insertará aquí -->
+            </div>
+        </section>
+
+        <!-- Phrasal verbs -->
+        <section>
+            <h2 class="text-3xl font-bold text-emerald-700 mb-6 border-b-4 border-emerald-300 pb-2">Práctica de Phrasal Verbs</h2>
+            <div id="phrasal-verbs-exercises" class="space-y-8 bg-white p-6 rounded-xl shadow-lg">
+                <!-- Los ejercicios de phrasal verbs se insertarán aquí -->
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+    const vocabularyData = [
+        { term: 'Certificate', definition: 'A piece of paper showing you\'ve achieved something.', example: 'I got a certificate when I finished the summer course.', es: 'Certificado' },
+        { term: 'Licence', definition: 'This allows you to do something, such as drive a car.', example: 'I passed my driving test. I\'ve got my licence!', es: 'Licencia, Permiso' },
+        { term: 'Degree', definition: 'A course of study that you take at university.', example: 'You usually have to study for three or four years to get a degree.', es: 'Grado, Carrera Universitaria' },
+        { term: 'Qualifications', definition: 'Official records showing you have the skills or knowledge for a job.', example: 'My grandfather left school with no qualifications.', es: 'Titulaciones, Cualificaciones' },
+        { term: 'Revise', definition: 'To study something again, especially for an exam.', example: 'We\'ve got a test tomorrow so I\'m going to revise tonight.', es: 'Repasar' },
+        { term: 'Pass (an exam)', definition: 'To be successful in an exam.', example: 'It\'s hard to pass an exam when you\'re exhausted.', es: 'Aprobar (un examen)' },
+        { term: 'Take (an exam)', definition: 'To do an exam.', example: 'Jason\'s going to take his first guitar exam next month.', es: 'Hacer (un examen)' },
+        { term: 'Lecturer', definition: 'This person teaches at a university.', example: 'My economics lecturer has been at this university for over 20 years.', es: 'Profesor/a universitario/a' },
+        { term: 'Coach', definition: 'This person trains a sports player or team.', example: 'The coach told me to run around the track ten times.', es: 'Entrenador/a' },
+        { term: 'Instructor', definition: 'This person teaches you how to do something, such as drive a car.', example: 'My mum is a driving instructor.', es: 'Instructor/a' },
+        { term: 'Graduate', definition: 'This person has successfully completed a course at university.', example: 'That company only hires graduates.', es: 'Graduado/a' },
+        { term: 'Undergraduate', definition: 'This person is studying at university for a first degree.', example: 'When I was an undergraduate, I spent a lot of time in the lab.', es: 'Estudiante de grado' },
+        { term: 'Pupil', definition: 'A person, usually a child, who is being taught.', example: 'Of all the pupils in his art class, Mr Smith believed that Karen was the most talented.', es: 'Alumno/a' },
+        { term: 'Surge', definition: 'A sudden increase in something.', example: 'There is a second important surge of development during the teenage years.', es: 'Aumento, Oleada' },
+        { term: 'Neuroscience', definition: 'The scientific study of the nervous system.', example: 'Neuroscience researchers have begun to build an accurate picture of the brain.', es: 'Neurociencia' },
+        { term: 'Neural', definition: 'Relating to your nerves or nervous system.', example: 'Neural pathways are created that allow us to repeat an action.', es: 'Neural' },
+        { term: 'Acquire', definition: 'To obtain something, get knowledge about.', example: 'This is a great age to acquire new skills.', es: 'Adquirir' },
+        { term: 'Equip', definition: 'To provide someone with the things they need.', example: 'It also equips teens with valuable life skills.', es: 'Equipar' },
+        { term: 'Emotionally resilient', definition: 'Able to quickly become happy again after a problem.', example: 'With insights, teenagers can become more emotionally resilient.', es: 'Emocionalmente resiliente' },
+        { term: 'Neuroplasticity', definition: 'The brain\'s ability to change and reorganise itself.', example: 'One area of research has been neuroplasticity.', es: 'Neuroplasticidad' },
+        { term: 'Proficient', definition: 'Skilled and experienced.', example: 'They can quickly become so proficient at using new technology.', es: 'Competente, Diestro' },
+        { term: 'Impulsive', definition: 'Acting suddenly without careful thought.', example: 'The developing PFC explains why teenagers can be impulsive.', es: 'Impulsivo/a' },
+        { term: 'Abstract thinking', definition: 'Thinking about ideas and principles rather than concrete objects.', example: 'The PFC is the area of the brain that\'s responsible for abstract thinking.', es: 'Pensamiento abstracto' },
+        { term: 'Sleep deprivation', definition: 'Not getting enough sleep.', example: 'Using a mobile phone before bed can cause sleep deprivation.', es: 'Privación de sueño' },
+        { term: 'Consolidate', definition: 'To make something stronger or more solid.', example: 'The brain consolidates what has been learnt while you\'re asleep.', es: 'Consolidar' },
+        { term: 'Trigger', definition: 'To cause something to start.', example: 'Darkness seems to trigger the release of melatonin.', es: 'Desencadenar, Activar' },
+        { term: 'Binge-sleeping', definition: 'Getting a lot more sleep than usual.', example: 'Try not to binge-sleep at the weekend.', es: 'Darse un atracón de sueño' },
+        { term: 'Pay attention to', definition: 'To concentrate on, to listen to.', example: 'Make sure you pay attention to any announcements.', es: 'Prestar atención a' },
+        { term: 'Succeed in', definition: 'To achieve something you have been trying to achieve.', example: 'The burglar succeeded in opening the door.', es: 'Tener éxito en' },
+        { term: 'Concentrate on', definition: 'To direct your attention or your efforts towards a particular activity, subject, or problem.', example: 'I couldn\'t concentrate on my homework because of the noise.', es: 'Concentrarse en' }
+    ];
+
+    const phrasalVerbExercises = [
+        { type: 'fill-in', sentence: 'If you don\'t know a word, you should ___ it ___ in a dictionary.', answer: 'look up', options: ['look up', 'set up', 'use up'] },
+        { type: 'fill-in', sentence: 'I want to ___ a computer-coding club at school.', answer: 'set up', options: ['catch up with', 'set up', 'end up'] },
+        { type: 'fill-in', sentence: 'Laura ___ a ridiculous excuse about why she hadn\'t written her essay.', answer: 'thought up', options: ['thought up', 'dug up', 'spoke up'] },
+        { type: 'fill-in', sentence: 'Who\'s ___ all the glue? There\'s none left!', answer: 'used up', options: ['ended up', 'used up', 'looked up'] },
+        { type: 'fill-in', sentence: 'When a student returns after being ill, they have to ___ the rest of the class.', answer: 'catch up with', options: ['catch up with', 'come up with', 'set up'] },
+        { type: 'multiple-choice', sentence: 'Go online and see what information you can ___ about the Romans for the class project.', answer: 'dig up', options: ['end up', 'dig up', 'use up'] },
+        { type: 'multiple-choice', sentence: 'There\'s only five minutes left, so ___!', answer: 'hurry up', options: ['hurry up', 'speak up', 'set up'] },
+        { type: 'multiple-choice', sentence: 'We took a wrong turn and ___ in completely the wrong place.', answer: 'ended up', options: ['looked up', 'ended up', 'thought up'] },
+        { type: 'multiple-choice', sentence: 'The phone line is terrible so you\'ll have to ___.', answer: 'speak up', options: ['catch up with', 'speak up', 'come up with'] },
+        { type: 'multiple-choice', sentence: 'I need to ___ a good reason for being late.', answer: 'think up', options: ['use up', 'dig up', 'think up'] }
+    ];
+
+    // --- BUILD VOCABULARY LIST ---
+    const vocabListContainer = document.getElementById('vocabulary-list');
+    vocabularyData.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'border border-slate-200 rounded-lg';
+        div.innerHTML = `
+            <button class="accordion-header w-full text-left p-4 font-semibold text-lg flex justify-between items-center hover:bg-slate-100">
+                <span>${item.term}</span>
+                <svg class="w-5 h-5 shrink-0 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="accordion-content px-4">
+                <div class="py-4 border-t border-slate-200">
+                    <p class="text-slate-600">${item.definition}</p>
+                    <p class="text-slate-500 italic my-2">Ej: "${item.example}"</p>
+                    <p class="font-semibold text-sky-700">Traducción: ${item.es}</p>
+                </div>
+            </div>
+        `;
+        vocabListContainer.appendChild(div);
+    });
+
+    vocabListContainer.addEventListener('click', (e) => {
+        const header = e.target.closest('.accordion-header');
+        if (header) {
+            const content = header.nextElementSibling;
+            const svg = header.querySelector('svg');
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                svg.style.transform = 'rotate(0deg)';
+            } else {
+                document.querySelectorAll('.accordion-content').forEach(el => el.style.maxHeight = null);
+                document.querySelectorAll('.accordion-header svg').forEach(el => el.style.transform = 'rotate(0deg)');
+                content.style.maxHeight = content.scrollHeight + "px";
+                svg.style.transform = 'rotate(180deg)';
+            }
+        }
+    });
+
+    // --- BUILD PHRASAL VERBS EXERCISES ---
+    const pvExercisesContainer = document.getElementById('phrasal-verbs-exercises');
+    phrasalVerbExercises.forEach((ex, index) => {
+        const div = document.createElement('div');
+        div.className = 'exercise-item';
+        let content = `<p class="font-semibold text-lg mb-3">${index + 1}. ${ex.sentence.replace('___', `<span class="font-bold text-gray-400">[...]</span>`)}</p>`;
+
+        if (ex.type === 'fill-in') {
+            content += `<input type="text" data-answer="${ex.answer}" class="w-full md:w-1/2 p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-emerald-300" placeholder="Escribe el phrasal verb...">`;
+        } else { // multiple-choice
+            content += `<div class="flex flex-wrap gap-3">`;
+            ex.options.forEach(opt => {
+                content += `<label class="flex items-center space-x-2 border rounded-md px-3 py-1 cursor-pointer hover:bg-slate-100">
+                                <input type="radio" name="pv-q${index}" value="${opt}">
+                                <span>${opt}</span>
+                           </label>`;
+            });
+            content += `</div>`;
+        }
+        content += `<div class="feedback p-2 rounded-md"></div>
+                    <button class="check-btn text-sm bg-emerald-100 text-emerald-800 px-3 py-1 rounded-md hover:bg-emerald-200 mt-3">Revisar</button>`;
+        div.innerHTML = content;
+        pvExercisesContainer.appendChild(div);
+    });
+
+    pvExercisesContainer.addEventListener('click', (e) => {
+        if(e.target.classList.contains('check-btn')) {
+            const exerciseItem = e.target.closest('.exercise-item');
+            const feedbackEl = exerciseItem.querySelector('.feedback');
+            const input = exerciseItem.querySelector('input[type="text"]');
+            const radio = exerciseItem.querySelector('input[type="radio"]:checked');
+
+            let userAnswer;
+            let correctAnswer;
+            let inputElement;
+
+            if (input) { // fill-in
+                userAnswer = input.value.trim().toLowerCase();
+                correctAnswer = input.dataset.answer.toLowerCase();
+                inputElement = input;
+            } else { // multiple-choice
+                userAnswer = radio ? radio.value.toLowerCase() : '';
+                correctAnswer = phrasalVerbExercises.find(ex => ex.sentence === exerciseItem.querySelector('p').textContent.replace(' [...]', '')).answer.toLowerCase();
+                inputElement = radio ? radio.closest('label') : null;
+            }
+            
+            feedbackEl.style.display = 'block';
+            if(inputElement && inputElement.nodeName === "INPUT") inputElement.classList.remove('input-correct', 'input-incorrect');
+
+            if (userAnswer === correctAnswer) {
+                feedbackEl.textContent = '¡Correcto!';
+                feedbackEl.className = 'feedback p-2 rounded-md bg-green-100 text-green-800';
+                if(inputElement && inputElement.nodeName === "INPUT") inputElement.classList.add('input-correct');
+            } else {
+                feedbackEl.textContent = `Incorrecto. La respuesta correcta es: ${correctAnswer}`;
+                feedbackEl.className = 'feedback p-2 rounded-md bg-red-100 text-red-800';
+                if(inputElement && inputElement.nodeName === "INPUT") inputElement.classList.add('input-incorrect');
+            }
+        }
+    });
+
+    </script>
+</body>
+</html>
