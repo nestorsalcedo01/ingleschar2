@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Práctica: Formación de Palabras</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .exercise-block {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            margin-bottom: 3rem;
+            padding: 2rem;
+        }
+        .input-correct {
+            border-color: #22c55e;
+            box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3);
+        }
+        .input-incorrect {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);
+        }
+        .feedback-text {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-extrabold text-slate-900">Centro de Práctica: Formación de Palabras</h1>
+            <p class="text-xl text-slate-600 mt-2">Completa los textos usando la forma correcta de las palabras en mayúsculas.</p>
+        </header>
+
+        <div id="exercises-container">
+            <!-- Los ejercicios se generarán aquí -->
+        </div>
+    </div>
+
+    <script>
+    const exerciseData = [
+        {
+            id: 'memory-feats',
+            title: 'Feats of Memory',
+            text: `How good is your memory? Do you have (1)___ remembering long strings of numbers? Some people are very good at it. If you're one of them, and if you're (2)___, you might want to take part in one of the numerous memory (3)___ that are held round the world. You probably recognise this symbol: π. It's a number called pi, which has some interesting (4)___ properties. Its digits continue for ever and don't repeat in a pattern. Some people have (5)___ managed to memorise a lot of the digits of pi. In 2015, 25-year-old Rajveer Meena remembered 70,000 digits correctly, which took him just over nine hours to recite. Although memorising that amount of (6)___ may seem absolutely (7)___, there are methods to help you. Memory experts recommend matching each thing you need to remember with a shape or colour or place, and creating a visual (8)___ between each one.`,
+            words: [
+                { root: 'DIFFICULT', answer: 'difficulty' },
+                { root: 'COMPETE', answer: 'competitive' },
+                { root: 'CHAMPION', answer: 'championships' },
+                { root: 'MATHS', answer: 'mathematical' },
+                { root: 'SUCCESS', answer: 'successfully' },
+                { root: 'INFORM', answer: 'information' },
+                { root: 'BELIEVE', answer: 'unbelievable' },
+                { root: 'RELATE', answer: 'relationship' }
+            ]
+        },
+        {
+            id: 'multiple-intelligences',
+            title: 'The Theory of Multiple Intelligences',
+            text: `According to Harvard University professor Howard Gardner, there are nine different ways to be smart. These intelligences, as he calls them, include characteristics that we normally associate with clever people, such as (1)___ ability and being able to think (2)___. But what if you have an (3)___ to understand abstract scientific ideas? Does that make you stupid? In Gardner's view, absolutely not, because the range of intelligences covers all human abilities. For example, some of us are 'people smart' - it means we don't have (4)___ understanding other people. (5)___ types are 'picture smart' and are good artists. If you're 'body smart', you can use a variety of physical skills and you have (6)___ mind-body coordination, like dancers and surgeons do. But some scientists disagree with the theory. They don't doubt the (7)___ of different abilities, but they believe that Gardner's 'intelligences' are really just skills. A strong (8)___ between these skills and talents is key.`,
+            words: [
+                { root: 'MATHS', answer: 'mathematical' },
+                { root: 'LOGIC', answer: 'logically' },
+                { root: 'ABLE', answer: 'inability' },
+                { root: 'DIFFICULT', answer: 'difficulty' },
+                { root: 'CREATE', answer: 'Creative' },
+                { root: 'IMPRESS', answer: 'impressive' },
+                { root: 'EXIST', answer: 'existence' },
+                { root: 'RELATE', answer: 'relationship' }
+            ]
+        },
+        {
+            id: 'teen-brain',
+            title: 'The Power of the Teen Brain',
+            text: `The (1)___ of the teenage brain is a topic of great interest for scientists. (2)___ research shows a second surge of growth during adolescence. The brain's ability to form new neural (3)___ is known as neuroplasticity, which gives teenagers great (4)___. This is why they can become so (5)___ at using new technology. The developing prefrontal cortex also has important (6)___ for learning. Dr. Daniel Siegel argues that understanding this helps teens develop their (7)___ intelligence and equips them with (8)___ life skills.`,
+            words: [
+                { root: 'DEVELOP', answer: 'development' },
+                { root: 'SCIENCE', answer: 'Scientific' },
+                { root: 'CONNECT', answer: 'connections' },
+                { root: 'FLEXIBLE', answer: 'flexibility' },
+                { root: 'PROFICIENT', answer: 'proficient' },
+                { root: 'IMPLY', answer: 'implications' },
+                { root: 'EMOTION', answer: 'emotional' },
+                { root: 'VALUE', answer: 'valuable' }
+            ]
+        }
+    ];
+
+    const exercisesContainer = document.getElementById('exercises-container');
+
+    function buildExercise(exercise) {
+        const block = document.createElement('div');
+        block.id = exercise.id;
+        block.className = 'exercise-block';
+
+        let textWithInputs = exercise.text;
+        exercise.words.forEach((word, i) => {
+            const gapIndex = i + 1;
+            const inputHtml = `<input type="text" class="inline-block w-48 p-1 border-b-2 border-slate-300 focus:outline-none focus:border-blue-500" data-answer="${word.answer}" data-index="${i}">`;
+            textWithInputs = textWithInputs.replace(`(${gapIndex})___`, inputHtml);
+        });
+
+        let listHtml = '<ol class="list-decimal list-inside mt-6 space-y-2">';
+        exercise.words.forEach((word, i) => {
+            listHtml += `<li class="font-semibold text-slate-600">${word.root}<span class="feedback-text" data-index="${i}"></span></li>`;
+        });
+        listHtml += '</ol>';
+
+        block.innerHTML = `
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">${exercise.title}</h2>
+            <p class="text-lg leading-relaxed">${textWithInputs}</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 mt-6">
+                ${listHtml}
+            </div>
+            <div class="mt-8 text-center">
+                <button class="check-btn bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg" data-section="${exercise.id}">Revisar Respuestas</button>
+                <p class="score-display mt-3 font-semibold text-lg"></p>
+            </div>
+        `;
+
+        exercisesContainer.appendChild(block);
+    }
+
+    function checkAnswers(sectionId) {
+        const section = document.getElementById(sectionId);
+        const inputs = section.querySelectorAll('input[type="text"]');
+        const feedbackTexts = section.querySelectorAll('.feedback-text');
+        const scoreDisplay = section.querySelector('.score-display');
+        let score = 0;
+
+        inputs.forEach(input => {
+            const index = input.dataset.index;
+            const feedback = section.querySelector(`.feedback-text[data-index="${index}"]`);
+            const userAnswer = input.value.trim().toLowerCase();
+            const correctAnswer = input.dataset.answer.toLowerCase();
+            
+            input.classList.remove('input-correct', 'input-incorrect');
+            feedback.textContent = '';
+            
+            if (userAnswer === correctAnswer) {
+                score++;
+                input.classList.add('input-correct');
+            } else {
+                input.classList.add('input-incorrect');
+                if (userAnswer !== '') {
+                    feedback.textContent = `(Correcto: ${input.dataset.answer})`;
+                    feedback.classList.add('text-green-600');
+                }
+            }
+        });
+
+        scoreDisplay.textContent = `Tu puntuación: ${score} / ${inputs.length}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        exerciseData.forEach(buildExercise);
+
+        document.querySelectorAll('.check-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                checkAnswers(e.target.dataset.section);
+            });
+        });
+    });
+    </script>
+</body>
+</html>
