@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Learning Hub: Learning About Learning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .topic-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .topic-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+        .feedback {
+            transition: opacity 0.3s ease;
+        }
+        .correct {
+            outline: 2px solid #22c55e; /* green-500 */
+            background-color: #f0fdf4; /* green-50 */
+        }
+        .incorrect {
+            outline: 2px solid #ef4444; /* red-500 */
+            background-color: #fef2f2; /* red-50 */
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4">
+            <h1 class="text-3xl font-bold text-gray-900">Interactive Learning Hub</h1>
+            <p class="text-gray-600 mt-1">Chapter 2: Learning About Learning</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+            
+            <!-- Card: The Teen Brain -->
+            <div id="card-brain" class="topic-card bg-white p-6 rounded-lg shadow-lg cursor-pointer">
+                <h2 class="text-2xl font-bold mb-2 text-blue-600">The Teen Brain: A Work in Progress</h2>
+                <p class="text-gray-600">Discover why the adolescent years are a critical period for learning and brain development.</p>
+            </div>
+
+            <!-- Card: The Importance of Sleep -->
+            <div id="card-sleep" class="topic-card bg-white p-6 rounded-lg shadow-lg cursor-pointer">
+                <h2 class="text-2xl font-bold mb-2 text-purple-600">The Importance of Sleep</h2>
+                <p class="text-gray-600">Understand how sleep critically impacts your ability to learn and consolidate memories.</p>
+            </div>
+
+            <!-- Card: Interactive Grammar -->
+            <div id="card-grammar" class="topic-card bg-white p-6 rounded-lg shadow-lg cursor-pointer">
+                <h2 class="text-2xl font-bold mb-2 text-green-600">Interactive Grammar</h2>
+                <p class="text-gray-600">Sharpen your grammar skills with dynamic exercises and instant feedback.</p>
+            </div>
+
+            <!-- Card: Key Vocabulary -->
+            <div id="card-vocab" class="topic-card bg-white p-6 rounded-lg shadow-lg cursor-pointer">
+                <h2 class="text-2xl font-bold mb-2 text-yellow-600">Key Vocabulary & Phrasal Verbs</h2>
+                <p class="text-gray-600">Expand your lexicon with flashcards covering the chapter's most important terms.</p>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Modal Structure -->
+    <div id="modal" class="modal fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 hidden opacity-0">
+        <div id="modal-content" class="bg-white rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-8 relative">
+            <button id="modal-close" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+            <div id="modal-body">
+                <!-- Content will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('modal');
+            const modalBody = document.getElementById('modal-body');
+            const modalClose = document.getElementById('modal-close');
+
+            const openModal = (content) => {
+                modalBody.innerHTML = content;
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.remove('opacity-0'), 10);
+                attachQuizListeners();
+            };
+
+            const closeModal = () => {
+                modal.classList.add('opacity-0');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            };
+
+            modalClose.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // Card click listeners
+            document.getElementById('card-brain').addEventListener('click', () => {
+                openModal(`
+                    <h2 class="text-3xl font-bold mb-4 text-blue-700">The Teen Brain: Plastic & Powerful</h2>
+                    <p class="mb-6 text-gray-700">Neuroscience shows that the teen brain isn't fully developed but undergoes a second major growth spurt. This makes it incredibly "plastic" and adaptable.</p>
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="font-semibold text-xl text-blue-600">Neuroplasticity & Pruning</h3>
+                            <p class="text-gray-600 mt-1">Neuroplasticity is the brain's ability to reorganize by forming new neural connections. In childhood, countless connections are made. During adolescence, the brain goes through a "pruning" process: frequently used neural pathways are strengthened, while unused ones disappear. This makes the brain more efficient but less flexible than a child's brain.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-xl text-blue-600">The Prefrontal Cortex (PFC)</h3>
+                            <p class="text-gray-600 mt-1">This area, the brain's "command center," is responsible for abstract thinking, planning, and impulse control. It's still developing in teens, which explains why they can be impulsive or take risks. However, this also means it's a prime time to develop critical thinking, problem-solving, and emotional intelligence.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-xl text-blue-600">A Window of Opportunity</h3>
+                            <p class="text-gray-600 mt-1 bg-blue-50 p-4 rounded-lg">According to psychiatrist Dr. Daniel Siegel, understanding these brain changes helps teens shape their own development. The teen years are a powerful life stage for activating purpose, creativity, and courage. Your brain's plasticity allows you to learn new skills—like an instrument, a language, or coding—more easily than adults.</p>
+                        </div>
+                    </div>
+                `);
+            });
+
+            document.getElementById('card-sleep').addEventListener('click', () => {
+                openModal(`
+                    <h2 class="text-3xl font-bold mb-4 text-purple-700">The Power of Sleep for Learning</h2>
+                    <p class="mb-6 text-gray-700">Sleep isn't downtime; it's a critical process during which your brain consolidates and practices what you've learned during the day.</p>
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="font-semibold text-xl text-purple-600">The Teen Body Clock</h3>
+                            <p class="text-gray-600 mt-1">A teenager's biological clock shifts, creating a "forbidden zone for sleep" around 9 or 10 p.m., making it hard to feel sleepy. This, combined with early school start times, often leads to sleep deprivation.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-xl text-purple-600">The Digital Disruption</h3>
+                            <p class="text-gray-600 mt-1">Using electronic devices before bed significantly harms sleep patterns. The blue light emitted tricks the brain into thinking it should be active. The solution is a "digital sunset"—turning off all devices one or two hours before bed.</p>
+                        </div>
+                         <div>
+                            <h3 class="font-semibold text-xl text-purple-600">Memory Consolidation</h3>
+                            <p class="text-gray-600 mt-1">Experiments show that after learning a new skill, students who get a good night's sleep improve significantly, while those with less than six hours of sleep don't improve or even get worse. This proves the brain consolidates learning during sleep. Therefore, sleeping *after* you study is just as important as sleeping *before* an exam.</p>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <h4 class="font-bold">Practical Tip: Avoid 'Binge-Sleeping'</h4>
+                            <p class="text-gray-700">Sleeping in much later on weekends can confuse your body clock. Try to maintain a relatively consistent sleep schedule throughout the week.</p>
+                        </div>
+                    </div>
+                `);
+            });
+
+            document.getElementById('card-grammar').addEventListener('click', () => {
+                openModal(`
+                    <h2 class="text-3xl font-bold mb-6 text-green-700">Interactive Grammar Practice</h2>
+                    <div class="space-y-8" id="quiz-container">
+                        
+                        <div class="p-6 border rounded-lg shadow-sm">
+                            <h3 class="font-semibold text-xl text-green-600 mb-4">Past Habits: 'used to', 'would'</h3>
+                            <p class="mb-4 text-sm text-gray-600">Complete the sentences. Use 'used to' for past states or habits, and 'would' only for past habits.</p>
+                            <div class="space-y-4">
+                                <div class="quiz-item" data-answer="used to wear">
+                                    <label class="block mb-1">1. At my dad's school, the boys ___ shorts until they were 11. (wear)</label>
+                                    <input type="text" class="w-full p-2 border rounded-md">
+                                    <div class="feedback hidden mt-1 text-sm"></div>
+                                </div>
+                                <div class="quiz-item" data-answer="would usually do">
+                                    <label class="block mb-1">2. We ___ experiments in the school lab on Fridays. (usually / do)</label>
+                                    <input type="text" class="w-full p-2 border rounded-md">
+                                    <div class="feedback hidden mt-1 text-sm"></div>
+                                </div>
+                                <div class="quiz-item" data-answer="used to have">
+                                    <label class="block mb-1">3. My dad ___ a beard when he was younger. (have - *state verb*)</label>
+                                    <input type="text" class="w-full p-2 border rounded-md">
+                                    <div class="feedback hidden mt-1 text-sm"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 border rounded-lg shadow-sm">
+                            <h3 class="font-semibold text-xl text-green-600 mb-4">Perfect Tenses</h3>
+                             <p class="mb-4 text-sm text-gray-600">Use the past simple, present perfect, or past perfect.</p>
+                            <div class="space-y-4">
+                                <div class="quiz-item" data-answer="had already left">
+                                    <label class="block mb-1">1. When I woke up this morning, my sister ___ for college. (already / leave)</label>
+                                    <input type="text" class="w-full p-2 border rounded-md">
+                                    <div class="feedback hidden mt-1 text-sm"></div>
+                                </div>
+                                <div class="quiz-item" data-answer="have you bought">
+                                    <label class="block mb-1">2. ___ the books for your course yet? (you / buy)</label>
+                                    <input type="text" class="w-full p-2 border rounded-md">
+                                    <div class="feedback hidden mt-1 text-sm"></div>
+                                </div>
+                                 <div class="quiz-item" data-answer="had spoken">
+                                    <label class="block mb-1">3. It was the second time we ___ with the principal. (speak)</label>
+                                    <input type="text" class="w-full p-2 border rounded-md">
+                                    <div class="feedback hidden mt-1 text-sm"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 border rounded-lg shadow-sm">
+                            <h3 class="font-semibold text-xl text-green-600 mb-4">'be/get used to'</h3>
+                             <p class="mb-4 text-sm text-gray-600">Complete with the correct form of 'be used to' or 'get used to' + verb.</p>
+                            <div class="space-y-4">
+                                <div class="quiz-item" data-answer="am getting used to doing">
+                                    <label class="block mb-1">1. I'm still ___ all my homework on a tablet. (get used to / do)</label>
+                                    <input type="text" class="w-full p-2 border rounded-md">
+                                    <div class="feedback hidden mt-1 text-sm"></div>
+                                </div>
+                                <div class="quiz-item" data-answer="aren't used to being">
+                                    <label class="block mb-1">2. The trainee teachers ___ in a classroom environment. (not be used to / be)</label>
+                                    <input type="text" class="w-full p-2 border rounded-md">
+                                    <div class="feedback hidden mt-1 text-sm"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="check-answers" class="w-full bg-green-600 text-white font-bold py-3 px-4 rounded-md hover:bg-green-700 transition-colors">Check Answers</button>
+                    </div>
+                `);
+            });
+
+            document.getElementById('card-vocab').addEventListener('click', () => {
+                openModal(`
+                    <h2 class="text-3xl font-bold mb-6 text-yellow-700">Key Vocabulary</h2>
+                    <div id="flashcard-container" class="relative w-full h-80 perspective-1000">
+                        <!-- Flashcards will be injected here -->
+                    </div>
+                    <div class="flex justify-center items-center mt-4 space-x-4">
+                        <button id="prev-card" class="bg-yellow-500 text-white font-bold py-2 px-4 rounded-md hover:bg-yellow-600 transition-colors">Previous</button>
+                        <div id="card-counter" class="text-gray-600 font-medium"></div>
+                        <button id="next-card" class="bg-yellow-500 text-white font-bold py-2 px-4 rounded-md hover:bg-yellow-600 transition-colors">Next</button>
+                    </div>
+                `);
+                setupFlashcards();
+            });
+
+            function attachQuizListeners() {
+                const checkButton = document.getElementById('check-answers');
+                if (checkButton) {
+                    checkButton.addEventListener('click', () => {
+                        const quizItems = document.querySelectorAll('.quiz-item');
+                        quizItems.forEach(item => {
+                            const input = item.querySelector('input');
+                            const feedback = item.querySelector('.feedback');
+                            const correctAnswer = item.dataset.answer.toLowerCase();
+                            const userAnswer = input.value.trim().toLowerCase();
+
+                            input.classList.remove('correct', 'incorrect');
+
+                            if (userAnswer === correctAnswer) {
+                                input.classList.add('correct');
+                                feedback.textContent = 'Correct!';
+                                feedback.classList.remove('hidden', 'text-red-600');
+                                feedback.classList.add('text-green-600');
+                            } else {
+                                input.classList.add('incorrect');
+                                feedback.textContent = 'Incorrect. The correct answer is: ' + item.dataset.answer;
+                                feedback.classList.remove('hidden', 'text-green-600');
+                                feedback.classList.add('text-red-600');
+                            }
+                        });
+                    });
+                }
+            }
+
+            function setupFlashcards() {
+                const flashcards = [
+                    { term: 'Acquire', definition: 'To obtain something; to get knowledge or a skill.' },
+                    { term: 'Neuroscience', definition: 'The scientific study of the nervous system and brain.' },
+                    { term: 'Resilient', definition: 'Able to quickly become happy or strong again after a problem.' },
+                    { term: 'Surge', definition: 'A sudden large increase.' },
+                    { term: 'Neural', definition: 'Relating to a nerve or the nervous system.' },
+                    { term: 'Equips', definition: 'Provides someone with the necessary items or abilities for a purpose.' },
+                    { term: 'Impulsive', definition: 'Acting suddenly without careful thought.' },
+                    { term: 'Proficient', definition: 'Skilled and experienced.' },
+                    { term: 'Deprivation', definition: 'The state of not having something that is necessary (e.g., sleep deprivation).' },
+                    { term: 'Consolidate', definition: 'To combine things to make them more effective; to make something stronger (like a memory).' },
+                    { term: 'Trigger', definition: 'To cause something to start.' },
+                    { term: 'Qualification', definition: 'An official record showing you have finished a training course or have the necessary skills.' },
+                    { term: 'Lecturer', definition: 'A person who gives lectures, usually at a university.' },
+                    { term: 'Undergraduate', definition: 'A university student who has not yet taken a first degree.' },
+                    { term: 'Catch up with', definition: '(Phrasal Verb) To reach the same quality or standard as someone else.' },
+                    { term: 'Come up with', definition: '(Phrasal Verb) To suggest or think of an idea or plan.' },
+                    { term: 'Dig up', definition: '(Phrasal Verb) To discover information about someone or something.' },
+                    { term: 'End up', definition: '(Phrasal Verb) To finally be in a particular place or situation.' },
+                    { term: 'Look up', definition: '(Phrasal Verb) To find information in a book or online.' },
+                    { term: 'Set up', definition: '(Phrasal Verb) To start a business, club, or organization.' }
+                ];
+
+                let currentCardIndex = 0;
+                const container = document.getElementById('flashcard-container');
+                const prevBtn = document.getElementById('prev-card');
+                const nextBtn = document.getElementById('next-card');
+                const counter = document.getElementById('card-counter');
+
+                function renderCards() {
+                    container.innerHTML = '';
+                    counter.textContent = `${currentCardIndex + 1} / ${flashcards.length}`;
+                    flashcards.forEach((card, index) => {
+                        const cardElement = document.createElement('div');
+                        cardElement.className = `absolute w-full h-full transform transition-transform duration-700 ease-in-out preserve-3d ${index === currentCardIndex ? 'z-10' : 'z-0'}`;
+                        cardElement.style.transform = `translateX(${(index - currentCardIndex) * 110}%) scale(0.9)`;
+                        cardElement.innerHTML = `
+                            <div class="relative w-full h-full transform-style-3d card-inner">
+                                <div class="absolute w-full h-full backface-hidden bg-white border-2 border-yellow-400 rounded-lg flex items-center justify-center p-4 text-center shadow-lg">
+                                    <h3 class="text-3xl font-bold">${card.term}</h3>
+                                </div>
+                                <div class="absolute w-full h-full backface-hidden bg-yellow-100 border-2 border-yellow-400 rounded-lg flex items-center justify-center p-4 text-center shadow-lg transform-gpu rotate-y-180">
+                                    <p class="text-xl text-gray-700">${card.definition}</p>
+                                </div>
+                            </div>
+                        `;
+                        container.appendChild(cardElement);
+                        
+                        cardElement.addEventListener('click', () => {
+                            cardElement.querySelector('.card-inner').classList.toggle('rotate-y-180');
+                        });
+                    });
+                }
+                
+                function showCard(index) {
+                    currentCardIndex = (index + flashcards.length) % flashcards.length;
+                    renderCards();
+                }
+
+                prevBtn.addEventListener('click', () => showCard(currentCardIndex - 1));
+                nextBtn.addEventListener('click', () => showCard(currentCardIndex + 1));
+                
+                showCard(0);
+                
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    .perspective-1000 { perspective: 1000px; }
+                    .transform-style-3d { transform-style: preserve-3d; }
+                    .preserve-3d { transform-style: preserve-3d; }
+                    .card-inner { transition: transform 0.6s; }
+                    .rotate-y-180 { transform: rotateY(180deg); }
+                    .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+                `;
+                document.head.appendChild(style);
+            }
+
+        });
+    </script>
+
+</body>
+</html>
