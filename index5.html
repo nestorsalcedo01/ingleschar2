@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 2 Mastery Challenge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f9;
+        }
+        .question-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px -1px rgba(0, 0, 0, 0.07), 0 2px 8px -1px rgba(0, 0, 0, 0.04);
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            transition: transform 0.2s ease-in-out;
+        }
+        .correct-answer {
+            background-color: #e6fffa;
+            border-left: 5px solid #38b2ac;
+        }
+        .incorrect-answer {
+            background-color: #fff5f5;
+            border-left: 5px solid #e53e3e;
+        }
+        .feedback {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-10">
+            <h1 class="text-5xl font-extrabold text-gray-900">Chapter 2 Mastery Challenge</h1>
+            <p class="text-xl text-gray-600 mt-2">A comprehensive test covering all topics from "Learning About Learning".</p>
+        </header>
+
+        <div id="quiz-container">
+            <!-- Questions will be dynamically inserted here -->
+        </div>
+
+        <div class="text-center mt-8">
+            <button id="submit-quiz" class="bg-indigo-600 text-white font-bold py-4 px-10 rounded-xl hover:bg-indigo-700 transition-all text-lg shadow-lg">Submit & See My Score</button>
+        </div>
+
+        <div id="results-container" class="hidden mt-12">
+            <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-2xl text-center">
+                <h2 class="text-4xl font-bold text-gray-900">Your Results</h2>
+                <p class="text-7xl font-extrabold my-5" id="score"></p>
+                <p class="text-lg text-gray-700" id="feedback-summary"></p>
+                <button id="retry-quiz" class="mt-8 bg-gray-200 text-gray-800 font-bold py-3 px-8 rounded-lg hover:bg-gray-300 transition-colors">Take the Challenge Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const quizData = [
+        // Section A: Grammar
+        {
+            type: 'multiple-choice',
+            section: 'Grammar: Past Habits',
+            question: "My French teacher ___ I was a good student, until I failed my test!",
+            options: ['was used to think', 'used to think', 'would think'],
+            answer: 'used to think',
+            explanation: "`used to` is correct for a past state (a belief held over time). `would` is incorrect because `think` here is a state verb, not a repeated action."
+        },
+        {
+            type: 'multiple-choice',
+            section: 'Grammar: Perfect Tenses',
+            question: "I couldn't read the book because someone ___ funny pictures in it.",
+            options: ['drew', 'has drawn', 'had drawn'],
+            answer: 'had drawn',
+            explanation: "The Past Perfect (`had drawn`) is needed because this action happened *before* the other past action (`couldn't read`)."
+        },
+        {
+            type: 'fill-in',
+            section: 'Grammar: Familiarity',
+            question: "I don't think the trainee teachers ___ being in a classroom environment yet.",
+            answer: "are used to",
+            explanation: "`be used to` + `-ing` describes a state of familiarity. The context implies they are not yet familiar with the environment."
+        },
+
+        // Section B: Vocabulary & Phrasal Verbs
+        {
+            type: 'multiple-choice',
+            section: 'Vocabulary: Definitions',
+            question: "Which word means 'a person who teaches at a university'?",
+            options: ['Coach', 'Instructor', 'Lecturer', 'Pupil'],
+            answer: 'Lecturer',
+            explanation: "A `lecturer` is the specific term for a university teacher. A `coach` trains sports, an `instructor` teaches a practical skill, and a `pupil` is a student, usually in primary school."
+        },
+        {
+            type: 'fill-in',
+            section: 'Phrasal Verbs',
+            question: "For my project, I needed to ___ who first came up with the idea for television.",
+            answer: "dig up",
+            explanation: "The phrasal verb `dig up` means to find or discover information through investigation."
+        },
+        {
+            type: 'fill-in',
+            section: 'Words + Prepositions',
+            question: "You need to concentrate ___ your studies and spend less time online.",
+            answer: "on",
+            explanation: "The correct collocation is `concentrate on` something."
+        },
+        
+        // Section C: Word Formation
+        {
+            type: 'word-formation',
+            section: 'Word Formation',
+            question: "Memory experts recommend creating a visual ___ between each thing you need to remember.",
+            rootWord: 'RELATE',
+            answer: 'relationship',
+            explanation: "The sentence needs a noun. A `relationship` is a connection between things."
+        },
+        {
+            type: 'word-formation',
+            section: 'Word Formation',
+            question: "If you're 'body smart', you have ___ mind-body coordination, like dancers and surgeons do.",
+            rootWord: 'IMPRESS',
+            answer: 'impressive',
+            explanation: "The sentence requires an adjective to describe 'mind-body coordination'."
+        },
+        
+        // Section D: Sentence Transformation
+        {
+            type: 'sentence-transformation',
+            section: 'Sentence Transformation',
+            question: "I don't know how he managed to remember so many numbers.",
+            prompt: "I don't know how he ___ so many numbers.",
+            keyword: 'SUCCEEDED',
+            answer: 'succeeded in remembering',
+            explanation: "`succeed in` is the correct structure, and it must be followed by the -ing form of the verb."
+        },
+        {
+            type: 'sentence-transformation',
+            section: 'Sentence Transformation',
+            question: "My brother doesn't want to go to university.",
+            prompt: "My brother is ___ to university.",
+            keyword: 'AGAINST',
+            answer: 'against going',
+            explanation: "The phrase `against` is followed by the gerund (`-ing` form) to express opposition to an action."
+        },
+
+        // Section E: Reading Comprehension
+        {
+            type: 'multiple-choice',
+            section: 'Reading Comprehension',
+            question: "In 'Plastic is Perfect', the development of the prefrontal cortex in teens explains why they might...",
+            options: [
+                "be very good at controlling their emotions.",
+                "have an excellent memory for facts.",
+                "be impulsive and take risks.",
+                "find it easy to concentrate for long periods."
+            ],
+            answer: "be impulsive and take risks.",
+            explanation: "The text states that because the teenage PFC is still developing, it explains why they can be impulsive and take risks."
+        },
+        {
+            type: 'multiple-choice',
+            section: 'Reading Comprehension',
+            question: "What is the 'digital sunset' mentioned in 'Teenagers, sleep and learning'?",
+            options: [
+                "A new app that helps you sleep.",
+                "Watching the sunset on a digital device.",
+                "A type of light emitted from phones.",
+                "Turning off all electronic devices a couple of hours before bed."
+            ],
+            answer: "Turning off all electronic devices a couple of hours before bed.",
+            explanation: "The text proposes this as a solution to counteract the brain-stimulating light from electronic devices before sleep."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const submitButton = document.getElementById('submit-quiz');
+    const resultsContainer = document.getElementById('results-container');
+    const scoreElement = document.getElementById('score');
+    const feedbackSummaryElement = document.getElementById('feedback-summary');
+    const retryButton = document.getElementById('retry-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        resultsContainer.classList.add('hidden');
+        submitButton.disabled = false;
+        
+        let sectionTitle = '';
+        quizData.forEach((item, index) => {
+            if(item.section !== sectionTitle) {
+                sectionTitle = item.section;
+                const sectionHeader = document.createElement('h2');
+                sectionHeader.className = "text-2xl font-bold text-gray-800 border-b-2 border-indigo-200 pb-2 mb-6";
+                sectionHeader.textContent = sectionTitle;
+                quizContainer.appendChild(sectionHeader);
+            }
+
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.dataset.index = index;
+
+            let questionHTML = `<p class="mt-2 text-lg font-semibold">${item.question.replace('___', '<span class="font-bold text-indigo-600">[...]</span>')}</p>`;
+            
+            switch (item.type) {
+                case 'multiple-choice':
+                    questionHTML += `<div class="mt-4 space-y-3">`;
+                    item.options.forEach(option => {
+                        questionHTML += `<label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer"><input type="radio" name="q${index}" value="${option}" class="mr-4 h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">${option}</label>`;
+                    });
+                    questionHTML += `</div>`;
+                    break;
+                case 'fill-in':
+                    questionHTML += `<div class="mt-4"><input type="text" placeholder="Type your answer here" class="w-full md:w-2/3 p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"></div>`;
+                    break;
+                case 'word-formation':
+                    questionHTML += `<div class="mt-4"><input type="text" placeholder="Type the correct word form" class="w-full md:w-2/3 p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"><p class="text-sm text-gray-500 mt-2">Use the word: <strong class="text-indigo-600">${item.rootWord}</strong></p></div>`;
+                    break;
+                case 'sentence-transformation':
+                     questionHTML += `<div class="mt-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><p class="text-gray-900">${item.prompt}</p><input type="text" placeholder="Complete the sentence (2-5 words)" class="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"><p class="text-sm text-gray-500 mt-2">Use the keyword: <strong class="text-indigo-600">${item.keyword}</strong></p></div>`;
+                    break;
+            }
+            card.innerHTML = questionHTML;
+            quizContainer.appendChild(card);
+        });
+    }
+
+    function checkAnswers() {
+        let score = 0;
+        quizData.forEach((item, index) => {
+            const card = quizContainer.querySelector(`[data-index='${index}']`);
+            card.classList.remove('correct-answer', 'incorrect-answer');
+            
+            let existingFeedback = card.querySelector('.feedback');
+            if(existingFeedback) existingFeedback.remove();
+
+            const feedbackElement = document.createElement('div');
+            feedbackElement.className = 'feedback';
+            
+            let userAnswer;
+            if (item.type === 'multiple-choice') {
+                const checkedRadio = card.querySelector(`input[name='q${index}']:checked`);
+                userAnswer = checkedRadio ? checkedRadio.value : '';
+            } else {
+                userAnswer = card.querySelector('input[type="text"]').value.trim();
+            }
+
+            if (userAnswer.toLowerCase() === item.answer.toLowerCase()) {
+                score++;
+                card.classList.add('correct-answer');
+                feedbackElement.innerHTML = `<strong>Correct!</strong>`;
+            } else {
+                card.classList.add('incorrect-answer');
+                feedbackElement.innerHTML = `<strong>Incorrect.</strong> The correct answer is "<strong>${item.answer}</strong>".<p class="mt-2 text-gray-600">${item.explanation}</p>`;
+            }
+            card.appendChild(feedbackElement);
+        });
+
+        const totalQuestions = quizData.length;
+        const percentage = Math.round((score / totalQuestions) * 100);
+        
+        resultsContainer.classList.remove('hidden');
+        scoreElement.textContent = `${percentage}%`;
+        scoreElement.className = `text-7xl font-extrabold my-5 ${percentage >= 70 ? 'text-green-500' : 'text-red-500'}`;
+        feedbackSummaryElement.textContent = `You answered ${score} out of ${totalQuestions} questions correctly. Review your answers above.`;
+        
+        submitButton.disabled = true;
+        resultsContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    submitButton.addEventListener('click', checkAnswers);
+    retryButton.addEventListener('click', () => {
+        buildQuiz();
+        window.scrollTo(0,0);
+    });
+
+    buildQuiz();
+    </script>
+</body>
+</html>
