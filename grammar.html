@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Entrenamiento Gramatical - Capítulo 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fafc;
+        }
+        .grammar-section {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            margin-bottom: 3rem;
+            padding: 2rem;
+        }
+        .explanation-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .correct-answer {
+            background-color: #f0fdf4;
+            border-left: 4px solid #22c55e;
+        }
+        .incorrect-answer {
+            background-color: #fef2f2;
+            border-left: 4px solid #ef4444;
+        }
+        .feedback {
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        .exercise-item {
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .exercise-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-extrabold text-gray-900">Centro de Entrenamiento Gramatical</h1>
+            <p class="text-xl text-gray-600 mt-2">Capítulo 2: Práctica Intensiva</p>
+        </header>
+
+        <!-- Section 1: used to / would -->
+        <section class="grammar-section" id="used-to-section">
+            <h2 class="text-3xl font-bold text-blue-700 mb-6">1. Past Habits: `used to` vs. `would`</h2>
+            <div class="explanation-card mb-8">
+                <h3 class="text-xl font-semibold mb-3">Reglas Clave</h3>
+                <ul class="space-y-3 list-disc list-inside">
+                    <li>Usa <code class="font-bold bg-blue-100 text-blue-800 px-2 py-1 rounded">used to</code> para hablar de **hábitos pasados** (acciones repetidas) y **estados pasados** (situaciones que eran ciertas durante un tiempo).</li>
+                    <li>Usa <code class="font-bold bg-green-100 text-green-800 px-2 py-1 rounded">would</code> para hablar **SOLAMENTE de hábitos pasados**. No se puede usar para estados.</li>
+                    <li class="pt-2 border-t mt-3"><strong>Ejemplo de Estado (Solo `used to`):</strong> <em class="text-gray-600">My dad <span class="font-bold">used to have</span> a beard.</em> (Incorrecto: <del>My dad would have a beard</del>).</li>
+                    <li><strong>Ejemplo de Hábito (Ambos posibles):</strong> <em class="text-gray-600">We <span class="font-bold">used to do</span> / <span class="font-bold">would do</span> experiments in the school lab.</em></li>
+                </ul>
+            </div>
+            <div id="used-to-exercises" class="space-y-4"></div>
+            <div class="mt-8 text-center">
+                 <button class="check-btn bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg" data-section="used-to">Revisar Respuestas</button>
+                 <p class="score-display mt-2 font-semibold"></p>
+            </div>
+        </section>
+
+        <!-- Section 2: be used to / get used to -->
+        <section class="grammar-section" id="be-get-used-to-section">
+            <h2 class="text-3xl font-bold text-purple-700 mb-6">2. Familiarity: `be used to` vs. `get used to`</h2>
+            <div class="explanation-card mb-8">
+                 <h3 class="text-xl font-semibold mb-3">Reglas Clave</h3>
+                <p class="mb-4">¡Importante! Esto no se trata del pasado. Se trata de **familiaridad** o **adaptación**. Siempre van seguidos de un sustantivo o un verbo en <code class="bg-gray-200 px-1 rounded">-ing</code>.</p>
+                <ul class="space-y-3 list-disc list-inside">
+                    <li><code class="font-bold bg-purple-100 text-purple-800 px-2 py-1 rounded">be used to + -ing</code>: Describe el **estado** de estar familiarizado con algo. Ya no es extraño para ti.</li>
+                    <li><code class="font-bold bg-orange-100 text-orange-800 px-2 py-1 rounded">get used to + -ing</code>: Describe el **proceso** de familiarizarse con algo. Estás en medio de la adaptación.</li>
+                    <li class="pt-2 border-t mt-3"><strong>Ejemplo de Estado:</strong> <em class="text-gray-600">I <span class="font-bold">am used to</span> getting up early.</em> (Es normal para mí).</li>
+                    <li><strong>Ejemplo de Proceso:</strong> <em class="text-gray-600">I am still <span class="font-bold">getting used to</span> the long hours.</em> (Todavía me estoy adaptando).</li>
+                </ul>
+            </div>
+            <div id="be-get-used-to-exercises" class="space-y-4"></div>
+             <div class="mt-8 text-center">
+                 <button class="check-btn bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-lg" data-section="be-get-used-to">Revisar Respuestas</button>
+                 <p class="score-display mt-2 font-semibold"></p>
+            </div>
+        </section>
+
+        <!-- Section 3: Perfect Tenses -->
+        <section class="grammar-section" id="perfect-tenses-section">
+            <h2 class="text-3xl font-bold text-red-700 mb-6">3. Perfect Tenses: Present vs. Past</h2>
+            <div class="explanation-card mb-8">
+                <h3 class="text-xl font-semibold mb-3">Reglas Clave</h3>
+                 <ul class="space-y-3 list-disc list-inside">
+                    <li><code class="font-bold bg-red-100 text-red-800 px-2 py-1 rounded">Past Simple</code>: Una acción completada en un tiempo **específico** en el pasado. (Ej: <em class="text-gray-600">I <span class="font-bold">saw</span> the film yesterday.</em>)</li>
+                    <li><code class="font-bold bg-green-100 text-green-800 px-2 py-1 rounded">Present Perfect</code>: Una acción en un tiempo **no especificado** en el pasado, que tiene relevancia o resultado en el presente. (Ej: <em class="text-gray-600">I <span class="font-bold">have seen</span> that film before.</em>)</li>
+                     <li><code class="font-bold bg-indigo-100 text-indigo-800 px-2 py-1 rounded">Past Perfect</code>: Una acción que ocurrió **antes** de otra acción en el pasado. El "pasado del pasado". (Ej: <em class="text-gray-600">He <span class="font-bold">had finished</span> cooking when we <span class="font-bold">arrived</span>.</em>)</li>
+                </ul>
+            </div>
+            <div id="perfect-tenses-exercises" class="space-y-4"></div>
+            <div class="mt-8 text-center">
+                 <button class="check-btn bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg" data-section="perfect-tenses">Revisar Respuestas</button>
+                 <p class="score-display mt-2 font-semibold"></p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+    const exercises = {
+        'used-to': [
+            // 20 exercises for used to / would
+            { q: "At my old school, we ___ wear a uniform. It was mandatory.", type: 'choice', options: ['used to', 'would'], answer: 'used to' },
+            { q: "Every summer, my family ___ go to the beach for a month.", type: 'choice', options: ['used to', 'would'], answer: 'would' },
+            { q: "I ___ like spinach, but now I love it.", type: 'choice', options: ['didn\'t use to', 'wouldn\'t'], answer: 'didn\'t use to' },
+            { q: "My grandfather ___ tell me stories about his childhood.", type: 'choice', options: ['used to', 'would'], answer: 'would' },
+            { q: "This building ___ be a cinema before it was a library.", type: 'choice', options: ['used to', 'would'], answer: 'used to' },
+            { q: "She ___ have very long hair when she was a teenager.", type: 'choice', options: ['used to', 'would'], answer: 'used to' },
+            { q: "He ___ always forget his keys, so we had to leave a spare one under the mat.", type: 'choice', options: ['used to', 'would'], answer: 'would' },
+            { q: "___ you ___ play an instrument when you were a child?", type: 'fill', answer: 'Did you use to' },
+            { q: "They ___ live in the city center, but they moved to the suburbs last year.", type: 'fill', answer: 'used to' },
+            { q: "When I was a kid, I ___ spend hours reading comic books.", type: 'fill', answer: 'would' },
+            { q: "My first car ___ be very unreliable.", type: 'fill', answer: 'used to' },
+            { q: "We ___ visit our grandparents every Sunday.", type: 'fill', answer: 'would' },
+            { q: "I ___ be afraid of the dark.", type: 'fill', answer: 'used to' },
+            { q: "He ___ never eat vegetables, but his doctor told him to change his diet.", type: 'fill', answer: 'used to' },
+            { q: "She ___ write letters to her friends before email became popular.", type: 'fill', answer: 'would' },
+            { q: "This area ___ be just fields before they built the houses.", type: 'fill', answer: 'used to' },
+            { q: "My brother ___ always borrow my clothes without asking.", type: 'fill', answer: 'would' },
+            { q: "I ___ have a pet dog named Sparky.", type: 'fill', answer: 'used to' },
+            { q: "On rainy days, we ___ play board games all afternoon.", type: 'fill', answer: 'would' },
+            { q: "People ___ listen to music on cassette tapes.", type: 'fill', answer: 'used to' },
+        ],
+        'be-get-used-to': [
+            // 20 exercises for be used to / get used to
+            { q: "It took me a while to ___ the noise of the city.", type: 'choice', options: ['be used to', 'get used to'], answer: 'get used to' },
+            { q: "I ___ working from home now; I've been doing it for a year.", type: 'choice', options: ['am used to', 'am getting used to'], answer: 'am used to' },
+            { q: "He's still ___ his new job.", type: 'choice', options: ['used to', 'getting used to'], answer: 'getting used to' },
+            { q: "She ___ the cold weather, as she's from Canada.", type: 'choice', options: ['is used to', 'gets used to'], answer: 'is used to' },
+            { q: "You'll have to ___ waking up early for the new schedule.", type: 'choice', options: ['be used to', 'get used to'], answer: 'get used to' },
+            { q: "Are you ___ the spicy food here yet?", type: 'choice', options: ['used to', 'getting used to'], answer: 'used to' },
+            { q: "We ___ living in a small apartment, so this big house feels strange.", type: 'choice', options: ['are not used to', 'are not getting used to'], answer: 'are not used to' },
+            { q: "I can't ___ eating dinner so late at night.", type: 'fill', answer: 'get used to' },
+            { q: "He has lived in the UK for 10 years, so he ___ driving on the left.", type: 'fill', answer: 'is used to' },
+            { q: "It's a new software, so everyone is still ___ it.", type: 'fill', answer: 'getting used to' },
+            { q: "My dog ___ having a walk at this time every day.", type: 'fill', answer: 'is used to' },
+            { q: "I will never ___ the taste of this medicine!", type: 'fill', answer: 'get used to' },
+            { q: "She ___ speaking in public; she does it all the time.", type: 'fill', answer: 'is used to' },
+            { q: "How long did it take you to ___ your new glasses?", type: 'fill', answer: 'get used to' },
+            { q: "We found it hard to ___ the different culture.", type: 'fill', answer: 'get used to' },
+            { q: "As a nurse, she ___ working long shifts.", type: 'fill', answer: 'is used to' },
+            { q: "I think I'm finally ___ the local accent.", type: 'fill', answer: 'getting used to' },
+            { q: "He will have to ___ being part of a team.", type: 'fill', answer: 'get used to' },
+            { q: "They ___ the quiet countryside after living in the city.", type: 'fill', answer: 'are not used to' },
+            { q: "Once you ___ the routine, it's very easy.", type: 'fill', answer: 'get used to' },
+        ],
+        'perfect-tenses': [
+            // 20 exercises for perfect tenses
+            { q: "She ___ to Paris last year for a holiday.", type: 'choice', options: ['has gone', 'went', 'had gone'], answer: 'went' },
+            { q: "I ___ this film before. I don't want to see it again.", type: 'choice', options: ['saw', 'have seen', 'had seen'], answer: 'have seen' },
+            { q: "By the time we arrived, the party ___.", type: 'choice', options: ['started', 'has started', 'had started'], answer: 'had started' },
+            { q: "He was very upset because he ___ his exam results.", type: 'choice', options: ['didn\'t just receive', 'hasn\'t just received', 'had just received'], answer: 'had just received' },
+            { q: "___ you ever ___ to Japan?", type: 'choice', options: ['Did you ever go', 'Have you ever been', 'Had you ever been'], answer: 'Have you ever been' },
+            { q: "When I got home, I realised I ___ my wallet at the office.", type: 'choice', options: ['left', 'have left', 'had left'], answer: 'had left' },
+            { q: "They ___ for the test, so they failed.", type: 'choice', options: ['didn\'t prepare', 'haven\'t prepared', 'hadn\'t prepared'], answer: 'hadn\'t prepared' },
+            { q: "I ___ a dinosaur before I went to the museum.", type: 'fill', answer: 'had never seen' },
+            { q: "She ___ her car since the accident last month.", type: 'fill', answer: 'hasn\'t driven' },
+            { q: "I turned off the lights, locked the door, and then I ___ the lab.", type: 'fill', answer: 'left' },
+            { q: "He ___ in Oxford for many years and loves the city.", type: 'fill', answer: 'has lived' },
+            { q: "When I woke up, the snow ___ during the night.", type: 'fill', answer: 'had fallen' },
+            { q: "___ you ___ your homework yet?", type: 'fill', answer: 'Have you finished' },
+            { q: "It was the first time he ___ an experiment in a laboratory.", type: 'fill', answer: 'had ever done' },
+            { q: "We ___ the new chemistry teacher yesterday. She's nice.", type: 'fill', answer: 'met' },
+            { q: "I can't call him because I ___ his number.", type: 'fill', answer: 'have lost' },
+            { q: "He told me he ___ his mind about the plan.", type: 'fill', answer: 'had changed' },
+            { q: "Albert Einstein ___ the theory of relativity.", type: 'fill', answer: 'developed' },
+            { q: "Up to that point, she ___ only at home with her parents.", type: 'fill', answer: 'had only lived' },
+            { q: "The company's profits ___ a lot in the last quarter.", type: 'fill', answer: 'have increased' },
+        ]
+    };
+
+    function buildSection(sectionId) {
+        const container = document.getElementById(`${sectionId}-exercises`);
+        container.innerHTML = '';
+        exercises[sectionId].forEach((ex, index) => {
+            const exerciseDiv = document.createElement('div');
+            exerciseDiv.className = 'exercise-item p-4';
+            let content = `<p class="font-semibold">${index + 1}. ${ex.q.replace('___', '<span class="font-bold text-gray-400">[...]</span>')}</p>`;
+            if (ex.type === 'choice') {
+                content += `<div class="mt-2 flex flex-wrap gap-2">`;
+                ex.options.forEach(opt => {
+                    content += `<label class="flex items-center space-x-2 border rounded-md px-3 py-1 cursor-pointer hover:bg-gray-100"><input type="radio" name="${sectionId}-q${index}" value="${opt}">${opt}</label>`;
+                });
+                content += `</div>`;
+            } else { // fill
+                content += `<input type="text" name="${sectionId}-q${index}" class="mt-2 w-full md:w-1/2 p-2 border rounded-md" placeholder="Escribe tu respuesta...">`;
+            }
+            content += `<div class="feedback"></div>`;
+            exerciseDiv.innerHTML = content;
+            container.appendChild(exerciseDiv);
+        });
+    }
+
+    function checkSection(sectionId) {
+        let score = 0;
+        const sectionExercises = exercises[sectionId];
+        sectionExercises.forEach((ex, index) => {
+            const container = document.querySelector(`[name="${sectionId}-q${index}"]`).closest('.exercise-item');
+            const feedbackEl = container.querySelector('.feedback');
+            let userAnswer;
+            if (ex.type === 'choice') {
+                const checkedRadio = container.querySelector(`input[name="${sectionId}-q${index}"]:checked`);
+                userAnswer = checkedRadio ? checkedRadio.value : '';
+            } else { // fill
+                userAnswer = container.querySelector('input').value.trim();
+            }
+
+            container.classList.remove('correct-answer', 'incorrect-answer');
+            if (userAnswer.toLowerCase() === ex.answer.toLowerCase()) {
+                score++;
+                container.classList.add('correct-answer');
+                feedbackEl.innerHTML = `<span class="font-bold text-green-700">Correcto!</span>`;
+            } else {
+                container.classList.add('incorrect-answer');
+                feedbackEl.innerHTML = `<span class="font-bold text-red-700">Incorrecto.</span> La respuesta correcta es: <strong class="text-red-900">${ex.answer}</strong>`;
+            }
+        });
+        const scoreDisplay = document.querySelector(`#${sectionId}-section .score-display`);
+        scoreDisplay.textContent = `Tu puntuación: ${score} / ${sectionExercises.length}`;
+    }
+
+    document.querySelectorAll('.check-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            checkSection(e.target.dataset.section);
+        });
+    });
+
+    // Build all sections on page load
+    buildSection('used-to');
+    buildSection('be-get-used-to');
+    buildSection('perfect-tenses');
+
+    </script>
+</body>
+</html>
