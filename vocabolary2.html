@@ -225,26 +225,27 @@
 
     // --- PHRASAL VERB LOGIC ---
     const resetPhrasalVerbsBtn = document.getElementById('reset-phrasal-verbs');
-    let selectedVerb = null;
-    let selectedDef = null;
+    const selections = {}; // {1: {verb: null, def: null}, 2: {verb: null, def: null}}
 
     function shuffle(array) {
-        return array.sort(() => Math.random() - 0.5);
+        return [...array].sort(() => Math.random() - 0.5);
     }
     
     function setupPhrasalVerbBlock(blockNum, data) {
+        selections[blockNum] = { verb: null, def: null };
         const verbsColumn = document.getElementById(`verbs-column-${blockNum}`);
         const defsColumn = document.getElementById(`defs-column-${blockNum}`);
         verbsColumn.innerHTML = '';
         defsColumn.innerHTML = '';
 
-        const shuffledVerbs = shuffle([...data]);
-        const shuffledDefs = shuffle([...data]);
+        const shuffledVerbs = shuffle(data);
+        const shuffledDefs = shuffle(data);
 
         shuffledVerbs.forEach(item => {
             const verbEl = document.createElement('div');
             verbEl.textContent = item.verb;
             verbEl.dataset.verb = item.verb;
+            verbEl.dataset.block = blockNum;
             verbEl.className = 'pv-item p-3 border-2 rounded-lg cursor-pointer hover:bg-gray-100 transition-all';
             verbsColumn.appendChild(verbEl);
         });
@@ -253,6 +254,7 @@
             const defEl = document.createElement('div');
             defEl.textContent = item.def;
             defEl.dataset.defFor = item.verb;
+            defEl.dataset.block = blockNum;
             defEl.className = 'pv-item p-3 border-2 rounded-lg cursor-pointer hover:bg-gray-100 transition-all';
             defsColumn.appendChild(defEl);
         });
@@ -265,32 +267,33 @@
         container.addEventListener('click', (e) => {
             const target = e.target;
             if (target.classList.contains('pv-item')) {
-                const isVerb = target.parentElement.id.includes('verbs-column');
+                const block = target.dataset.block;
+                const isVerb = target.dataset.verb;
                 
                 if (isVerb) {
-                    if (selectedVerb) selectedVerb.classList.remove('selected');
-                    selectedVerb = target;
-                    selectedVerb.classList.add('selected');
+                    if (selections[block].verb) selections[block].verb.classList.remove('selected');
+                    selections[block].verb = target;
+                    target.classList.add('selected');
                 } else {
-                    if (selectedDef) selectedDef.classList.remove('selected');
-                    selectedDef = target;
-                    selectedDef.classList.add('selected');
+                    if (selections[block].def) selections[block].def.classList.remove('selected');
+                    selections[block].def = target;
+                    target.classList.add('selected');
                 }
-                checkMatch();
+                checkMatch(block);
             }
         });
     }
 
-    function checkMatch() {
-        if (selectedVerb && selectedDef) {
-            if (selectedVerb.dataset.verb === selectedDef.dataset.defFor) {
-                selectedVerb.classList.add('correct-match');
-                selectedDef.classList.add('correct-match');
+    function checkMatch(blockNum) {
+        const selection = selections[blockNum];
+        if (selection.verb && selection.def) {
+            if (selection.verb.dataset.verb === selection.def.dataset.defFor) {
+                selection.verb.classList.add('correct-match');
+                selection.def.classList.add('correct-match');
             }
-            selectedVerb.classList.remove('selected');
-            selectedDef.classList.remove('selected');
-            selectedVerb = null;
-            selectedDef = null;
+            selection.verb.classList.remove('selected');
+            selection.def.classList.remove('selected');
+            selections[blockNum] = { verb: null, def: null };
         }
     }
     
@@ -303,10 +306,17 @@
     // --- WORD FORMATION LOGIC ---
     const wfContainer = document.getElementById('word-formation-container');
     const wfScoreEl = document.getElementById('wf-score');
-    const wfTotalEl = document.getElementById('wf-total');
-    let wfScore = 0;
     
-    wfTotalEl.textContent = wordFormationData.length * 10;
+    function updateWfScore() {
+        let currentScore = 0;
+        const inputs = wfContainer.querySelectorAll('input');
+        inputs.forEach(input => {
+            if (input.dataset.isCorrect === 'true') {
+                currentScore += 10;
+            }
+        });
+        wfScoreEl.textContent = currentScore;
+    }
 
     wordFormationData.forEach((item) => {
         const div = document.createElement('div');
@@ -321,7 +331,7 @@
         wfContainer.appendChild(div);
     });
 
-    wfContainer.addEventListener('change', (e) => {
+    wfContainer.addEventListener('input', (e) => {
         if (e.target.tagName === 'INPUT') {
             const input = e.target;
             input.classList.remove('input-correct', 'input-incorrect');
@@ -329,18 +339,12 @@
             
             if (isCorrect) {
                 input.classList.add('input-correct');
-                if(!input.dataset.scored) {
-                    wfScore += 10;
-                    input.dataset.scored = "true";
-                }
+                input.dataset.isCorrect = 'true';
             } else {
                 input.classList.add('input-incorrect');
-                 if(input.dataset.scored) {
-                    wfScore -= 10;
-                    input.dataset.scored = "";
-                }
+                input.dataset.isCorrect = 'false';
             }
-            wfScoreEl.textContent = wfScore;
+            updateWfScore();
         }
     });
 
@@ -353,3 +357,4 @@
     </script>
 </body>
 </html>
+
