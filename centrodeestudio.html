@@ -42,7 +42,7 @@
         <!-- Sección 1: Vocabulario Clave de la Lectura (Página 15) -->
         <section class="mb-16">
             <h2 class="text-3xl font-bold text-sky-700 mb-6 border-b-4 border-sky-300 pb-2">Vocabulario Clave de la Lectura</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div id="vocabulary-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 <!-- Tarjetas de Vocabulario se insertarán aquí -->
             </div>
         </section>
@@ -50,7 +50,7 @@
         <!-- Sección 2: Conceptos de Gramática (Página 16) -->
         <section>
             <h2 class="text-3xl font-bold text-emerald-700 mb-6 border-b-4 border-emerald-300 pb-2">Conceptos de Gramática</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+            <div id="grammar-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
                 <!-- Tarjetas de Gramática se insertarán aquí -->
             </div>
         </section>
@@ -103,10 +103,9 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        const vocabContainer = document.querySelector('#vocabulary-key-concepts > .grid');
-        const grammarContainer = document.querySelector('#grammar-concepts > .grid');
-        const vocabGrid = document.querySelector('section:nth-child(1) .grid');
-        const grammarGrid = document.querySelector('section:nth-child(2) .grid');
+        // Corrected selectors to use specific IDs
+        const vocabGrid = document.getElementById('vocabulary-grid');
+        const grammarGrid = document.getElementById('grammar-grid');
 
         vocabularyData.forEach(item => {
             vocabGrid.appendChild(createFlashcard(item));
@@ -120,3 +119,4 @@
     </script>
 </body>
 </html>
+
