@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Consolidation Hub - Chapter 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .question-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.08);
+            margin-bottom: 1.5rem;
+            padding: 2rem;
+        }
+        .correct-answer {
+            background-color: #f0fdf4;
+            border-left: 5px solid #22c55e;
+        }
+        .incorrect-answer {
+            background-color: #fef2f2;
+            border-left: 5px solid #ef4444;
+        }
+        .feedback {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-extrabold text-slate-900">Learning Consolidation Hub</h1>
+            <p class="text-xl text-slate-600 mt-3">An advanced set of exercises to truly consolidate your Chapter 2 knowledge.</p>
+        </header>
+
+        <div id="quiz-container">
+            <!-- Questions will be dynamically inserted here -->
+        </div>
+
+        <div class="text-center mt-8">
+            <button id="submit-quiz" class="bg-cyan-600 text-white font-bold py-4 px-10 rounded-xl hover:bg-cyan-700 transition-all text-lg shadow-lg">Check My Answers</button>
+        </div>
+
+        <div id="results-container" class="hidden mt-12">
+            <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-2xl text-center">
+                <h2 class="text-4xl font-bold text-slate-900">Final Score</h2>
+                <p class="text-7xl font-extrabold my-5" id="score"></p>
+                <p class="text-lg text-slate-700" id="feedback-summary"></p>
+                <button id="retry-quiz" class="mt-8 bg-slate-200 text-slate-800 font-bold py-3 px-8 rounded-lg hover:bg-slate-300 transition-colors">Try Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const quizData = [
+        // Section 1: Advanced Grammar Practice
+        {
+            type: 'multiple-choice',
+            section: 'Advanced Grammar: Tense Nuances',
+            question: "This is the first time I ___ to such a famous scientist!",
+            options: ['spoke', 'have spoken', 'had spoken'],
+            answer: 'have spoken',
+            explanation: "The phrase 'This is the first time...' is followed by the Present Perfect to describe an experience happening up to the present moment."
+        },
+        {
+            type: 'fill-in',
+            section: 'Advanced Grammar: Past Habits & States',
+            question: "At the age of 11, they ___ wearing long trousers. (This was a repeated action/habit)",
+            answer: 'would start',
+            explanation: "`would` is used for repeated past actions or habits. `used to` could also work, but `would` fits perfectly here."
+        },
+        {
+            type: 'sentence-transformation',
+            section: 'Advanced Grammar: Sentence Transformation',
+            question: "Are you listening to what I'm saying?",
+            prompt: "Are you ___ to what I'm saying?",
+            keyword: 'ATTENTION',
+            answer: 'paying attention',
+            explanation: "The idiom is 'to pay attention to' someone or something, meaning to listen carefully."
+        },
+        {
+            type: 'multiple-choice',
+            section: 'Advanced Grammar: Familiarity',
+            question: "Eventually, the new students all ___ a school uniform.",
+            options: ['got used to wearing', 'were used to wear', 'used to wearing'],
+            answer: 'got used to wearing',
+            explanation: "`get used to` describes the process of becoming familiar with something. It is followed by the -ing form."
+        },
+
+        // Section 2: Vocabulary in Context
+        {
+            type: 'fill-in',
+            section: 'Vocabulary in Context: Phrasal Verbs',
+            question: "I couldn't hear the museum guide very well, so I was too shy to ask her to ___.",
+            answer: 'speak up',
+            explanation: "The phrasal verb `speak up` means to talk louder."
+        },
+        {
+            type: 'multiple-choice',
+            section: 'Vocabulary in Context: Word Choice',
+            question: "My grandfather left school at the age of 15 with no degrees or ___.",
+            options: ['licences', 'qualifications', 'certificates'],
+            answer: 'qualifications',
+            explanation: "`Qualifications` is the general term for passing exams or having the right skills, especially when leaving school."
+        },
+        {
+            type: 'fill-in',
+            section: 'Vocabulary in Context: Words + Prepositions',
+            question: "She criticized Tim ___ not working hard on his part of the project.",
+            answer: "for",
+            explanation: "The correct collocation is to `criticize someone for` doing something."
+        },
+
+        // Section 3: Word & Concept Application
+        {
+            type: 'word-formation',
+            section: 'Word & Concept Application: Word Formation',
+            question: "Being able to think ___ is a characteristic we normally associate with clever people.",
+            rootWord: 'LOGIC',
+            answer: 'logically',
+            explanation: "The sentence requires an adverb to describe the verb 'think'."
+        },
+        {
+            type: 'word-formation',
+            section: 'Word & Concept Application: Word Formation',
+            question: "Some people have ___ managed to memorise a lot of the digits of pi.",
+            rootWord: 'SUCCESS',
+            answer: 'successfully',
+            explanation: "An adverb is needed to describe how they 'managed' to do it."
+        },
+        {
+            type: 'multiple-choice',
+            section: 'Word & Concept Application: Reading Comprehension',
+            question: "Why does Dr. Daniel Siegel believe the teen years are an exciting time?",
+            options: [
+                "Because teens can finally get a driver's license.",
+                "Because it's the most powerful life stage for activating purpose, creativity, and courage.",
+                "Because their brains are fully developed and fixed.",
+                "Because teens no longer need to sleep as much."
+            ],
+            answer: "Because it's the most powerful life stage for activating purpose, creativity, and courage.",
+            explanation: "The text 'Plastic is Perfect' directly quotes his view that the teen years are a powerful stage for personal growth."
+        },
+        {
+            type: 'multiple-choice',
+            section: 'Word & Concept Application: Reading Comprehension',
+            question: "What is a key difference between an adult's brain and a teenager's brain according to 'Plastic is Perfect'?",
+            options: [
+                "The adult brain has more neurons.",
+                "The teenage brain has more 'plasticity' and flexibility for learning new things.",
+                "The adult brain is better at learning new languages.",
+                "The teenage brain's prefrontal cortex is more developed."
+            ],
+            answer: "The teenage brain has more 'plasticity' and flexibility for learning new things.",
+            explanation: "The text emphasizes that while adults have stronger 'fixed' pathways, teens have greater flexibility ('plasticity') making it easier for them to acquire new skills."
+        },
+        {
+            type: 'sentence-transformation',
+            section: 'Word & Concept Application: Sentence Transformation',
+            question: "First I read the book and then I saw the film.",
+            prompt: "I ___ the book before I saw the film.",
+            keyword: 'HAD',
+            answer: 'had read',
+            explanation: "The Past Perfect (`had read`) is used to show that this action was completed before the other past action (`saw`)."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const submitButton = document.getElementById('submit-quiz');
+    const resultsContainer = document.getElementById('results-container');
+    const scoreElement = document.getElementById('score');
+    const feedbackSummaryElement = document.getElementById('feedback-summary');
+    const retryButton = document.getElementById('retry-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        resultsContainer.classList.add('hidden');
+        submitButton.disabled = false;
+        
+        let sectionTitle = '';
+        quizData.forEach((item, index) => {
+            if(item.section !== sectionTitle) {
+                sectionTitle = item.section;
+                const sectionHeader = document.createElement('h2');
+                sectionHeader.className = "text-2xl font-bold text-slate-800 border-b-2 border-cyan-300 pb-2 mb-6";
+                sectionHeader.textContent = sectionTitle;
+                quizContainer.appendChild(sectionHeader);
+            }
+
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.dataset.index = index;
+
+            let questionHTML = `<p class="mt-2 text-lg font-semibold">${item.question.replace('___', '<span class="font-bold text-cyan-600">[...]</span>')}</p>`;
+            
+            switch (item.type) {
+                case 'multiple-choice':
+                    questionHTML += `<div class="mt-4 space-y-3">`;
+                    item.options.forEach(option => {
+                        questionHTML += `<label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 cursor-pointer"><input type="radio" name="q${index}" value="${option}" class="mr-4 h-4 w-4 text-cyan-600 border-gray-300 focus:ring-cyan-500">${option}</label>`;
+                    });
+                    questionHTML += `</div>`;
+                    break;
+                case 'fill-in':
+                    questionHTML += `<div class="mt-4"><input type="text" placeholder="Type your answer here" class="w-full md:w-2/3 p-3 border border-slate-300 rounded-lg focus:ring-cyan-500 focus:border-cyan-500"></div>`;
+                    break;
+                case 'word-formation':
+                    questionHTML += `<div class="mt-4"><input type="text" placeholder="Type the correct word form" class="w-full md:w-2/3 p-3 border border-slate-300 rounded-lg focus:ring-cyan-500 focus:border-cyan-500"><p class="text-sm text-slate-500 mt-2">Use the word: <strong class="text-cyan-600">${item.rootWord}</strong></p></div>`;
+                    break;
+                case 'sentence-transformation':
+                     questionHTML += `<div class="mt-4 bg-slate-50 p-4 rounded-lg border border-slate-200"><p class="text-slate-900">${item.prompt}</p><input type="text" placeholder="Complete the sentence (2-5 words)" class="w-full mt-2 p-3 border border-slate-300 rounded-lg focus:ring-cyan-500 focus:border-cyan-500"><p class="text-sm text-slate-500 mt-2">Use the keyword: <strong class="text-cyan-600">${item.keyword}</strong></p></div>`;
+                    break;
+            }
+            card.innerHTML = questionHTML;
+            quizContainer.appendChild(card);
+        });
+    }
+
+    function checkAnswers() {
+        let score = 0;
+        quizData.forEach((item, index) => {
+            const card = quizContainer.querySelector(`[data-index='${index}']`);
+            card.classList.remove('correct-answer', 'incorrect-answer');
+            
+            let existingFeedback = card.querySelector('.feedback');
+            if(existingFeedback) existingFeedback.remove();
+
+            const feedbackElement = document.createElement('div');
+            feedbackElement.className = 'feedback';
+            
+            let userAnswer;
+            if (item.type === 'multiple-choice') {
+                const checkedRadio = card.querySelector(`input[name='q${index}']:checked`);
+                userAnswer = checkedRadio ? checkedRadio.value : '';
+            } else {
+                userAnswer = card.querySelector('input[type="text"]').value.trim();
+            }
+
+            if (userAnswer.toLowerCase() === item.answer.toLowerCase()) {
+                score++;
+                card.classList.add('correct-answer');
+                feedbackElement.innerHTML = `<strong>Correct!</strong>`;
+            } else {
+                card.classList.add('incorrect-answer');
+                feedbackElement.innerHTML = `<strong>Incorrect.</strong> The correct answer is "<strong>${item.answer}</strong>".<p class="mt-2 text-slate-600">${item.explanation}</p>`;
+            }
+            card.appendChild(feedbackElement);
+        });
+
+        const totalQuestions = quizData.length;
+        const percentage = Math.round((score / totalQuestions) * 100);
+        
+        resultsContainer.classList.remove('hidden');
+        scoreElement.textContent = `${percentage}%`;
+        scoreElement.className = `text-7xl font-extrabold my-5 ${percentage >= 70 ? 'text-green-500' : 'text-red-500'}`;
+        feedbackSummaryElement.textContent = `You answered ${score} out of ${totalQuestions} questions correctly. Review your answers above.`;
+        
+        submitButton.disabled = true;
+        resultsContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    submitButton.addEventListener('click', checkAnswers);
+    retryButton.addEventListener('click', () => {
+        buildQuiz();
+        window.scrollTo(0,0);
+    });
+
+    buildQuiz();
+    </script>
+</body>
+</html>
