@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Learning Hub - Tu Centro de Aprendizaje de Inglés</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+        }
+        .card-hover-effect {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #3b82f6, #1e40af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold gradient-text">
+                English Learning Hub
+            </div>
+            <nav>
+                <a href="#" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Inicio</a>
+                <a href="#" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Sobre Nosotros</a>
+                <a href="#" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        
+        <!-- Hero Section -->
+        <section class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Bienvenido a tu Aventura en Inglés</h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">Hemos preparado una colección de herramientas y recursos para ayudarte a dominar el inglés de una manera fácil y divertida. ¡Explora las secciones y comienza a aprender hoy mismo!</p>
+        </section>
+
+        <!-- Learning Modules Section -->
+        <section>
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Nuestras Secciones de Aprendizaje</h2>
+            
+            <!-- Grid container for the cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+
+                <!-- 
+                  INSTRUCCIÓN PARA EDITAR:
+                  Para cada tarjeta, cambia el atributo `href` de la etiqueta `<a>`.
+                  Por ejemplo, cambia `href="#"` por `href="vocabulario.html"` cuando crees esa página.
+                -->
+
+                <!-- Card 1: Vocabulario -->
+                <a href="#" class="card-hover-effect block">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col">
+                        <div class="p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="p-3 bg-blue-100 rounded-full">
+                                    <!-- Icono SVG para Vocabulario -->
+                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v11.494m-9-5.747h18"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.5 9.3l2.8 2.8-2.8 2.8M20.5 9.3l-2.8 2.8 2.8 2.8"></path></svg>
+                                </div>
+                                <h3 class="ml-4 text-xl font-semibold text-gray-900">Vocabulario</h3>
+                            </div>
+                            <p class="text-gray-600">Amplía tu léxico con nuestras listas de palabras, ejercicios y juegos interactivos.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 2: Gramática -->
+                <a href="#" class="card-hover-effect block">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col">
+                        <div class="p-6">
+                             <div class="flex items-center mb-4">
+                                <div class="p-3 bg-green-100 rounded-full">
+                                    <!-- Icono SVG para Gramática -->
+                                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+                                </div>
+                                <h3 class="ml-4 text-xl font-semibold text-gray-900">Gramática</h3>
+                            </div>
+                            <p class="text-gray-600">Entiende las reglas del inglés con explicaciones claras y ejemplos prácticos.</p>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Card 3: Listening -->
+                <a href="#" class="card-hover-effect block">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col">
+                        <div class="p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="p-3 bg-purple-100 rounded-full">
+                                    <!-- Icono SVG para Listening -->
+                                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M12 18a3 3 0 003-3V9a3 3 0 00-6 0v6a3 3 0 003 3zM18.364 5.636a9 9 0 010 12.728"></path></svg>
+                                </div>
+                                <h3 class="ml-4 text-xl font-semibold text-gray-900">Ejercicios de Escucha</h3>
+                            </div>
+                            <p class="text-gray-600">Mejora tu comprensión auditiva con audios de hablantes nativos en distintos niveles.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 4: Lectura -->
+                <a href="#" class="card-hover-effect block">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col">
+                        <div class="p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="p-3 bg-yellow-100 rounded-full">
+                                    <!-- Icono SVG para Lectura -->
+                                    <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v11.494m-9-5.747h18"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.25 9.75h17.5M3.25 14.25h17.5M12 3.75v16.5"></path></svg>
+                                </div>
+                                <h3 class="ml-4 text-xl font-semibold text-gray-900">Comprensión Lectora</h3>
+                            </div>
+                            <p class="text-gray-600">Lee textos interesantes y evalúa tu comprensión con nuestras preguntas.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 5: Escritura -->
+                <a href="#" class="card-hover-effect block">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col">
+                        <div class="p-6">
+                           <div class="flex items-center mb-4">
+                                <div class="p-3 bg-red-100 rounded-full">
+                                    <!-- Icono SVG para Escritura -->
+                                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                </div>
+                                <h3 class="ml-4 text-xl font-semibold text-gray-900">Práctica de Escritura</h3>
+                            </div>
+                            <p class="text-gray-600">Desarrolla tu habilidad para escribir corrigiendo textos y practicando redacciones.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 6: Quizzes -->
+                <a href="#" class="card-hover-effect block">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col">
+                        <div class="p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="p-3 bg-indigo-100 rounded-full">
+                                    <!-- Icono SVG para Quizzes -->
+                                    <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                                </div>
+                                <h3 class="ml-4 text-xl font-semibold text-gray-900">Cuestionarios</h3>
+                            </div>
+                            <p class="text-gray-600">Pon a prueba tus conocimientos con nuestros divertidos y desafiantes quizzes.</p>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Card 7: Frases Comunes -->
+                 <a href="#" class="card-hover-effect block">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col">
+                        <div class="p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="p-3 bg-pink-100 rounded-full">
+                                    <!-- Icono SVG para Frases -->
+                                    <svg class="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8s-9-3.582-9-8 4.03-8 9-8 9 3.582 9 8z"></path></svg>
+                                </div>
+                                <h3 class="ml-4 text-xl font-semibold text-gray-900">Frases Comunes</h3>
+                            </div>
+                            <p class="text-gray-600">Aprende frases útiles para conversaciones del día a día y situaciones comunes.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 8: Pronunciación -->
+                 <a href="#" class="card-hover-effect block">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col">
+                        <div class="p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="p-3 bg-teal-100 rounded-full">
+                                    <!-- Icono SVG para Pronunciación -->
+                                    <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>
+                                </div>
+                                <h3 class="ml-4 text-xl font-semibold text-gray-900">Guía de Pronunciación</h3>
+                            </div>
+                            <p class="text-gray-600">Escucha y practica la pronunciación correcta de sonidos y palabras difíciles.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Puedes agregar aquí las dos tarjetas restantes si lo deseas -->
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-12">
+        <div class="container mx-auto px-6 py-4">
+            <p class="text-center text-gray-500 text-sm">
+                &copy; 2025 English Learning Hub. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
