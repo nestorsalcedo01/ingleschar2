@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Estudio Interactivo - Páginas 15-16</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .card-container {
+            perspective: 1000px;
+        }
+        .flashcard {
+            transition: transform 0.7s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+        .flashcard.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-face {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-extrabold text-slate-900">Centro de Estudio Interactivo</h1>
+            <p class="text-xl text-slate-600 mt-2">Conceptos Clave de las Páginas 15 y 16</p>
+        </header>
+
+        <!-- Sección 1: Vocabulario Clave de la Lectura (Página 15) -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-sky-700 mb-6 border-b-4 border-sky-300 pb-2">Vocabulario Clave de la Lectura</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Tarjetas de Vocabulario se insertarán aquí -->
+            </div>
+        </section>
+
+        <!-- Sección 2: Conceptos de Gramática (Página 16) -->
+        <section>
+            <h2 class="text-3xl font-bold text-emerald-700 mb-6 border-b-4 border-emerald-300 pb-2">Conceptos de Gramática</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+                <!-- Tarjetas de Gramática se insertarán aquí -->
+            </div>
+        </section>
+    </div>
+
+    <script>
+    const vocabularyData = [
+        { term: 'Forbidden zone for sleep', definition: 'Una idea que se refiere a no permitir que alguien se duerma.', example: 'Teenagers\' body clocks change, creating a \'forbidden zone for sleep\' at around 9 or 10 pm.' },
+        { term: 'Alert', definition: 'Despierto y con energía.', example: '...just when their teenage kids are at their most alert.' },
+        { term: 'Sleep deprivation', definition: 'No dormir lo suficiente.', example: 'Teens who used electronic devices experienced some sleep deprivation.' },
+        { term: 'Consolidates', definition: 'Hacer algo más fuerte o más sólido.', example: 'The brain consolidates and practises what has been learnt while you\'re asleep.' },
+        { term: 'Trigger', definition: 'Hacer que algo comience.', example: 'Darkness seems to trigger the release of melatonin.' },
+        { term: 'Binge-sleeping', definition: 'Dormir mucho más de lo habitual.', example: 'Try not to binge-sleep at the weekend.' },
+        { term: 'Propping them up', definition: 'Mantenerlos energizados y despiertos.', example: 'It\'s propping them up just as they should be feeling sleepy.' },
+        { term: 'Digital sunset', definition: 'Apagar todos los dispositivos electrónicos un par de horas antes de acostarse.', example: 'The solution here may involve the introduction of a \'digital sunset\'.' }
+    ];
+
+    const grammarData = [
+        { term: 'used to', definition: 'Describe un hábito o estado pasado que ya no es cierto. Se puede usar tanto para acciones repetidas como para situaciones.', example: 'We used to have PE twice a week. / My dad used to have a beard.' },
+        { term: 'would', definition: 'Describe un hábito pasado (una acción repetida). NO se puede usar para describir estados pasados.', example: 'We would usually do experiments in the school lab.' },
+        { term: 'be used to +ing', definition: 'Describe una situación que es familiar y no extraña (el estado de estar acostumbrado).', example: 'Are you used to getting the bus to school every day?' },
+        { term: 'get used to +ing', definition: 'Describe el PROCESO de que una situación se vuelva familiar (el proceso de acostumbrarse).', example: 'It took me about 3 months to get used to going to a new school.' }
+    ];
+
+    function createFlashcard(item) {
+        const cardContainer = document.createElement('div');
+        cardContainer.className = 'card-container h-64';
+
+        const flashcard = document.createElement('div');
+        flashcard.className = 'flashcard relative w-full h-full';
+
+        flashcard.innerHTML = `
+            <!-- Cara Frontal -->
+            <div class="flashcard-face absolute w-full h-full bg-white rounded-xl shadow-lg flex items-center justify-center p-4 border-2 border-slate-200">
+                <p class="text-2xl font-bold text-center">${item.term}</p>
+            </div>
+            <!-- Cara Trasera -->
+            <div class="flashcard-back absolute w-full h-full bg-slate-50 rounded-xl shadow-lg p-6 border-2 border-slate-200 flex flex-col justify-center">
+                <p class="text-md font-semibold text-slate-600">${item.definition}</p>
+                <p class="text-slate-500 italic mt-3">Ejemplo: "${item.example}"</p>
+            </div>
+        `;
+
+        flashcard.addEventListener('click', () => {
+            flashcard.classList.toggle('is-flipped');
+        });
+
+        cardContainer.appendChild(flashcard);
+        return cardContainer;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const vocabContainer = document.querySelector('#vocabulary-key-concepts > .grid');
+        const grammarContainer = document.querySelector('#grammar-concepts > .grid');
+        const vocabGrid = document.querySelector('section:nth-child(1) .grid');
+        const grammarGrid = document.querySelector('section:nth-child(2) .grid');
+
+        vocabularyData.forEach(item => {
+            vocabGrid.appendChild(createFlashcard(item));
+        });
+
+        grammarData.forEach(item => {
+            grammarGrid.appendChild(createFlashcard(item));
+        });
+    });
+
+    </script>
+</body>
+</html>
