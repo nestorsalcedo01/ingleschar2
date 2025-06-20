@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Comprensión Lectora - Capítulo 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+        }
+        .reading-section {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            margin-bottom: 3rem;
+            padding: 2rem;
+        }
+        .correct-answer {
+            background-color: #ecfdf5;
+            border-left: 4px solid #34d399;
+        }
+        .incorrect-answer {
+            background-color: #fff1f2;
+            border-left: 4px solid #fb7185;
+        }
+        .feedback {
+            font-size: 0.875rem;
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            display: none;
+        }
+        .feedback.show {
+            display: block;
+        }
+        .exercise-item {
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .exercise-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-extrabold text-slate-900">Centro de Comprensión Lectora</h1>
+            <p class="text-xl text-slate-600 mt-2">Capítulo 2: Practica con los textos del libro</p>
+        </header>
+
+        <!-- Section 1: Plastic is Perfect -->
+        <section class="reading-section" id="plastic-perfect-section">
+            <h2 class="text-3xl font-bold text-sky-700 mb-6">Lectura 1: "Plastic is Perfect"</h2>
+            <div id="plastic-perfect-exercises" class="space-y-6">
+                <!-- Los ejercicios para esta sección se insertarán aquí -->
+            </div>
+            <div class="mt-8 text-center">
+                 <button class="check-btn bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 px-8 rounded-lg" data-section="plastic-perfect">Revisar Respuestas de Lectura 1</button>
+                 <p class="score-display mt-3 font-semibold text-lg"></p>
+            </div>
+        </section>
+
+        <!-- Section 2: Teenagers, sleep and learning -->
+        <section class="reading-section" id="sleep-learning-section">
+            <h2 class="text-3xl font-bold text-indigo-700 mb-6">Lectura 2: "Teenagers, sleep and learning"</h2>
+            <div id="sleep-learning-exercises" class="space-y-6">
+                 <!-- Los ejercicios para esta sección se insertarán aquí -->
+            </div>
+             <div class="mt-8 text-center">
+                 <button class="check-btn bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg" data-section="sleep-learning">Revisar Respuestas de Lectura 2</button>
+                 <p class="score-display mt-3 font-semibold text-lg"></p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+    const exercises = {
+        'plastic-perfect': [
+            { 
+                type: 'multiple-choice', 
+                question: "What does the writer say about the brain?",
+                options: [
+                    "The brain develops fully before a child is six years old.",
+                    "The brain develops steadily until the end of the teenage years.",
+                    "There is another sharp increase of brain development in adolescence.",
+                    "It has taken neuroscientists 40 years to understand the brain."
+                ],
+                answer: "There is another sharp increase of brain development in adolescence.",
+                explanation: "Correcto. El texto dice que 'hay un segundo importante aumento del desarrollo durante la adolescencia'."
+            },
+            {
+                type: 'multiple-choice',
+                question: "What is true about neural pathways in the brain?",
+                options: [
+                    "Adults still have all the neural pathways that were created in childhood.",
+                    "Every time we learn to do something new, we use 86 billion neurons.",
+                    "Very few neural pathways are created in childhood compared to adulthood.",
+                    "Older people have lost some of the neural connections they used to have."
+                ],
+                answer: "Older people have lost some of the neural connections they used to have.",
+                explanation: "Correcto. El texto explica que las vías neuronales menos utilizadas desaparecen con el tiempo ('disappear')."
+            },
+            {
+                type: 'multiple-choice',
+                question: "As a result of their brain plasticity, teenagers...",
+                options: [
+                    "can learn to use new technology easily.",
+                    "don't learn as quickly as adults.",
+                    "should put off learning to drive.",
+                    "often find their IQ decreases."
+                ],
+                answer: "can learn to use new technology easily.",
+                explanation: "Correcto. El texto afirma que la plasticidad 'explica por qué pueden volverse tan competentes en el uso de nueva tecnología rápidamente'."
+            },
+            {
+                type: 'multiple-choice',
+                question: "The development of the prefrontal cortex during the teen years means that...",
+                options: [
+                    "teenagers are especially receptive to learning new things.",
+                    "teenagers might do things without thinking about the consequences.",
+                    "young people are very good at controlling their emotions.",
+                    "it is impossible for adolescents to have abstract thoughts."
+                ],
+                answer: "teenagers might do things without thinking about the consequences.",
+                explanation: "Correcto. El texto dice que un córtex prefrontal en desarrollo 'explica por qué los adolescentes pueden ser impulsivos y tomar riesgos'."
+            }
+        ],
+        'sleep-learning': [
+            { 
+                type: 'multiple-choice', 
+                question: "What does 'propping them up' in paragraph 2 mean?",
+                options: ["making them even more tired", "keeping them energised and awake", "stopping them from thinking clearly", "supporting and encouraging them"],
+                answer: "keeping them energised and awake",
+                explanation: "Correcto. El contexto describe que el reloj biológico de los adolescentes los mantiene despiertos ('alert') justo cuando deberían sentirse somnolientos."
+            },
+            {
+                type: 'multiple-choice',
+                question: "What point does the writer make in paragraph 4 about learning?",
+                options: [
+                    "The most important thing is to sleep well before an exam.",
+                    "Teenagers brains are more complex than scientists thought.",
+                    "Teenagers should be encouraged to sleep at school.",
+                    "We continue to learn things while we are sleeping."
+                ],
+                answer: "We continue to learn things while we are sleeping.",
+                explanation: "Correcto. El texto dice que 'el cerebro consolida y practica lo que se ha aprendido mientras estás dormido'."
+            },
+            {
+                type: 'multiple-choice',
+                question: "What is suggested about melatonin in the final paragraph?",
+                options: [
+                    "It is only produced when we are asleep.",
+                    "It is most effective in a brightly lit room.",
+                    "It naturally helps the human body feel sleepy.",
+                    "Most teenagers don't produce enough of it."
+                ],
+                answer: "It naturally helps the human body feel sleepy.",
+                explanation: "Correcto. El texto se refiere a la melatonina como 'la hormona del sueño', lo que implica que induce la somnolencia."
+            },
+             {
+                type: 'multiple-choice',
+                question: "What does 'binge-sleeping' describe in the final paragraph?",
+                options: [
+                    "only getting up when you feel refreshed.",
+                    "getting up but still feeling tired.",
+                    "getting a lot less sleep than usual.",
+                    "getting a lot more sleep than usual."
+                ],
+                answer: "getting a lot more sleep than usual.",
+                explanation: "Correcto. El texto usa este término para describir dormir mucho más tiempo los fines de semana (hasta el mediodía) en comparación con los días de semana."
+            }
+        ]
+    };
+
+    function buildSection(sectionId) {
+        const container = document.getElementById(`${sectionId}-exercises`);
+        if (!container) return;
+        container.innerHTML = '';
+        exercises[sectionId].forEach((ex, index) => {
+            const exerciseDiv = document.createElement('div');
+            exerciseDiv.className = 'exercise-item';
+            
+            let content = `<p class="font-semibold text-lg mb-4">${index + 1}. ${ex.question}</p>`;
+            
+            if (ex.type === 'multiple-choice') {
+                content += `<div class="space-y-3">`;
+                ex.options.forEach(opt => {
+                    content += `<label class="flex items-center space-x-3 border rounded-lg p-3 cursor-pointer hover:bg-slate-100 transition-colors">
+                                    <input type="radio" name="${sectionId}-q${index}" value="${opt}" class="h-4 w-4 text-sky-600 focus:ring-sky-500">
+                                    <span>${opt}</span>
+                               </label>`;
+                });
+                content += `</div>`;
+            }
+            
+            content += `<div class="feedback bg-slate-100 p-3 rounded-md mt-4"></div>`;
+            exerciseDiv.innerHTML = content;
+            container.appendChild(exerciseDiv);
+        });
+    }
+
+    function checkSection(sectionId) {
+        let score = 0;
+        const sectionExercises = exercises[sectionId];
+        sectionExercises.forEach((ex, index) => {
+            const exerciseItem = document.querySelector(`input[name="${sectionId}-q${index}"]`).closest('.exercise-item');
+            const feedbackEl = exerciseItem.querySelector('.feedback');
+            const checkedRadio = exerciseItem.querySelector(`input[name="${sectionId}-q${index}"]:checked`);
+            const userAnswer = checkedRadio ? checkedRadio.value : '';
+
+            exerciseItem.classList.remove('correct-answer', 'incorrect-answer');
+            feedbackEl.classList.remove('show');
+            
+            if (userAnswer) { // Only grade if an answer was selected
+                if (userAnswer === ex.answer) {
+                    score++;
+                    exerciseItem.classList.add('correct-answer');
+                    feedbackEl.innerHTML = `<span class="font-bold text-emerald-700">¡Correcto!</span> ${ex.explanation}`;
+                } else {
+                    exerciseItem.classList.add('incorrect-answer');
+                    feedbackEl.innerHTML = `<span class="font-bold text-rose-700">Incorrecto.</span> La respuesta correcta es: <strong class="text-rose-900">"${ex.answer}"</strong>. ${ex.explanation}`;
+                }
+                feedbackEl.classList.add('show');
+            }
+        });
+
+        const scoreDisplay = document.querySelector(`#${sectionId}-section .score-display`);
+        scoreDisplay.textContent = `Tu puntuación: ${score} / ${sectionExercises.length}`;
+    }
+
+    document.querySelectorAll('.check-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            checkSection(e.target.dataset.section);
+        });
+    });
+
+    // Build all sections on page load
+    buildSection('plastic-perfect');
+    buildSection('sleep-learning');
+    </script>
+</body>
+</html>
