@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller de Escritura de Ensayos - Capítulo 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .writing-section {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            margin-bottom: 3rem;
+            padding: 2rem;
+        }
+        .essay-sentence {
+            cursor: pointer;
+            transition: background-color 0.2s;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        .essay-sentence:hover {
+            background-color: #e0f2fe; /* sky-100 */
+        }
+        .feedback-popup {
+            display: none;
+            position: absolute;
+            background-color: #1e293b; /* slate-800 */
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            z-index: 10;
+        }
+        .highlight-opinion { background-color: #cffafe; /* cyan-100 */ }
+        .highlight-justification { background-color: #dcfce7; /* green-100 */ }
+        .highlight-conclusion { background-color: #ffedd5; /* orange-100 */ }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-extrabold text-slate-900">Taller de Escritura de Ensayos</h1>
+            <p class="text-xl text-slate-600 mt-2">Capítulo 2: Aprende a Estructurar y Justificar tus Opiniones</p>
+        </header>
+
+        <!-- Sección 1: Análisis Interactivo de Ensayo -->
+        <section class="writing-section">
+            <h2 class="text-3xl font-bold text-sky-700 mb-4">1. Desglosando un Ensayo de Opinión</h2>
+            <p class="mb-6 text-slate-600">Lee el siguiente ensayo de ejemplo. Haz clic en las frases para identificar su función (expresar una opinión, justificar con un ejemplo, o concluir).</p>
+            <div class="bg-slate-50 p-6 rounded-lg border border-slate-200 leading-relaxed relative">
+                <p id="essay-text">
+                    <span class="essay-sentence" data-type="contexto">Some people think teenagers are bad at teaching because they are too young and inexperienced.</span> 
+                    <span class="essay-sentence" data-type="opinion">While it's true they are not old enough to work at a school, I would argue that teenagers can teach people many different things.</span><br><br>
+                    <span class="essay-sentence" data-type="punto_principal">One area where teenagers often have an advantage over older people is new technology.</span> 
+                    <span class="essay-sentence" data-type="justificacion">For example, my parents often ask me for help and advice about smartphones, computers, tablets and apps.</span> 
+                    <span class="essay-sentence" data-type="opinion">Whereas adults sometimes seem to struggle with new gadgets, it seems to me that teenagers understand them almost instantly - and can teach others how to use them.</span><br><br>
+                    <span class="essay-sentence" data-type="opinion">In my view, another area where teenagers lead the way is in environmental awareness.</span> 
+                    <span class="essay-sentence" data-type="justificacion">My friends, for example, understand green issues more than their parents, and are often good at persuading them to change their ways, for instance with recycling.</span> 
+                    <span class="essay-sentence" data-type="justificacion">Similarly, teenagers often have specific interests and skills which they can teach.</span><br><br>
+                    <span class="essay-sentence" data-type="conclusion">In conclusion, I disagree with the idea that teenagers make bad teachers.</span> 
+                    <span class="essay-sentence" data-type="conclusion">In my experience, I have seen them successfully teach and influence many people.</span>
+                </p>
+                <div id="feedback-popup" class="feedback-popup"></div>
+            </div>
+        </section>
+
+        <!-- Sección 2: Asistente de Redacción Guiada -->
+        <section class="writing-section">
+            <h2 class="text-3xl font-bold text-emerald-700 mb-4">2. Asistente de Redacción: ¡Tu Turno!</h2>
+            <p class="mb-2 text-slate-600">Ahora, escribe tu propio ensayo en respuesta a la siguiente pregunta:</p>
+            <p class="mb-6 bg-emerald-50 text-emerald-800 font-semibold p-4 rounded-lg border border-emerald-200">"'Schools don't prepare teenagers well enough to be adults in the modern world.' Do you agree?"</p>
+            
+            <div class="space-y-6">
+                <div>
+                    <h3 class="font-bold text-lg">Paso 1: Introducción</h3>
+                    <p class="text-sm text-slate-500 mb-2">Presenta el tema y expón tu opinión claramente.</p>
+                    <textarea id="intro-paragraph" class="w-full h-24 p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-300" placeholder="Frases útiles: I would argue that..., It seems to me that..., In my view..."></textarea>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg">Paso 2: Párrafo de Desarrollo 1 - Tareas Cotidianas</h3>
+                    <p class="text-sm text-slate-500 mb-2">Escribe sobre cómo las escuelas preparan (o no) para tareas como cocinar, mantenimiento del coche, etc. Justifica con ejemplos.</p>
+                    <textarea id="body-paragraph-1" class="w-full h-32 p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-300" placeholder="Frases útiles: For example..., For instance..., Because..."></textarea>
+                </div>
+                 <div>
+                    <h3 class="font-bold text-lg">Paso 3: Párrafo de Desarrollo 2 - Conseguir un Trabajo</h3>
+                    <p class="text-sm text-slate-500 mb-2">Escribe sobre la preparación para el mundo laboral. ¿Qué se enseña? ¿Qué falta?</p>
+                    <textarea id="body-paragraph-2" class="w-full h-32 p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-300" placeholder="Frases útiles: This is why..., Since..., As..."></textarea>
+                </div>
+                 <div>
+                    <h3 class="font-bold text-lg">Paso 4: Párrafo de Desarrollo 3 - Tu Propia Idea</h3>
+                    <p class="text-sm text-slate-500 mb-2">Añade otra área importante (ej. inteligencia financiera, salud mental, etc.) y desarróllala.</p>
+                    <textarea id="body-paragraph-3" class="w-full h-32 p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-300" placeholder="Añade tu propia idea y justifícala."></textarea>
+                </div>
+                 <div>
+                    <h3 class="font-bold text-lg">Paso 5: Conclusión</h3>
+                    <p class="text-sm text-slate-500 mb-2">Resume tus puntos y reafirma tu opinión con otras palabras.</p>
+                    <textarea id="conclusion-paragraph" class="w-full h-24 p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-300" placeholder="Frases útiles: In conclusion..., To sum up..., To conclude..."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 3: Autoevaluación Final -->
+        <section class="writing-section">
+            <h2 class="text-3xl font-bold text-indigo-700 mb-4">3. Autoevaluación Final</h2>
+             <p class="mb-6 text-slate-600">Antes de terminar, revisa tu trabajo con esta lista de verificación interactiva.</p>
+             <div class="space-y-3">
+                 <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 cursor-pointer"><input type="checkbox" class="h-5 w-5 mr-3 text-indigo-600 focus:ring-indigo-500"> He escrito al menos cuatro párrafos.</label>
+                 <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 cursor-pointer"><input type="checkbox" class="h-5 w-5 mr-3 text-indigo-600 focus:ring-indigo-500"> He expresado y justificado mis opiniones.</label>
+                 <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 cursor-pointer"><input type="checkbox" class="h-5 w-5 mr-3 text-indigo-600 focus:ring-indigo-500"> He discutido las ideas de tareas cotidianas y conseguir un trabajo.</label>
+                 <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 cursor-pointer"><input type="checkbox" class="h-5 w-5 mr-3 text-indigo-600 focus:ring-indigo-500"> He incluido y discutido mi propia idea.</label>
+                 <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 cursor-pointer"><input type="checkbox" class="h-5 w-5 mr-3 text-indigo-600 focus:ring-indigo-500"> He concluido mi ensayo adecuadamente.</label>
+                 <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50 cursor-pointer"><input type="checkbox" class="h-5 w-5 mr-3 text-indigo-600 focus:ring-indigo-500"> He revisado la ortografía y la gramática.</label>
+             </div>
+             <div class="mt-8">
+                 <button id="compile-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg w-full">Ver Mi Ensayo Completo</button>
+                 <div id="final-essay-container" class="hidden mt-6 bg-slate-50 p-6 rounded-lg border border-slate-200 whitespace-pre-wrap"></div>
+             </div>
+        </section>
+
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const essayText = document.getElementById('essay-text');
+        const feedbackPopup = document.getElementById('feedback-popup');
+
+        essayText.addEventListener('mouseover', (e) => {
+            if (e.target.classList.contains('essay-sentence')) {
+                const sentence = e.target;
+                const type = sentence.dataset.type;
+                let feedbackText = '';
+
+                switch(type) {
+                    case 'contexto':
+                        feedbackText = 'Contexto General';
+                        break;
+                    case 'opinion':
+                        feedbackText = 'Expresión de Opinión';
+                        break;
+                    case 'punto_principal':
+                        feedbackText = 'Punto Principal del Párrafo';
+                        break;
+                    case 'justificacion':
+                        feedbackText = 'Justificación con Ejemplo';
+                        break;
+                    case 'conclusion':
+                        feedbackText = 'Conclusión';
+                        break;
+                }
+
+                feedbackPopup.textContent = feedbackText;
+                feedbackPopup.style.display = 'block';
+                
+                const rect = sentence.getBoundingClientRect();
+                feedbackPopup.style.left = `${window.scrollX + rect.left}px`;
+                feedbackPopup.style.top = `${window.scrollY + rect.top - feedbackPopup.offsetHeight - 5}px`;
+            }
+        });
+
+        essayText.addEventListener('mouseout', (e) => {
+            if (e.target.classList.contains('essay-sentence')) {
+                feedbackPopup.style.display = 'none';
+            }
+        });
+
+        const compileBtn = document.getElementById('compile-btn');
+        const finalEssayContainer = document.getElementById('final-essay-container');
+        
+        compileBtn.addEventListener('click', () => {
+            const intro = document.getElementById('intro-paragraph').value;
+            const body1 = document.getElementById('body-paragraph-1').value;
+            const body2 = document.getElementById('body-paragraph-2').value;
+            const body3 = document.getElementById('body-paragraph-3').value;
+            const conclusion = document.getElementById('conclusion-paragraph').value;
+
+            const fullEssay = [intro, body1, body2, body3, conclusion].filter(p => p.trim() !== '').join('\n\n');
+
+            finalEssayContainer.textContent = fullEssay || "Aún no has escrito nada en los párrafos.";
+            finalEssayContainer.classList.remove('hidden');
+        });
+    });
+    </script>
+</body>
+</html>
